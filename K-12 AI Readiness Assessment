@@ -1,0 +1,672 @@
+K12 ai readiness scan · HTML
+Copy
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K–12 AI Readiness Scan | The Language Firm</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+  :root {
+    --ink:        #1a1a2e;
+    --teal:       #16697a;
+    --teal-light: #d0ecf1;
+    --teal-mid:   #9fd3dc;
+    --amber:      #e6a817;
+    --amber-light:#fdf3d9;
+    --smoke:      #f5f5f0;
+    --rule:       #c8d8db;
+    --white:      #ffffff;
+    --red:        #a4161a;
+    --red-light:  #fdecea;
+    --green:      #1c6b3a;
+    --green-light:#e2f5ea;
+    --mid:        #5c6b73;
+    --gold:       #b45309;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--smoke);
+    color: var(--ink);
+    font-size: 10pt;
+    line-height: 1.45;
+  }
+
+  .page {
+    max-width: 8.5in;
+    margin: 0 auto;
+    background: var(--white);
+    padding: 0.38in 0.5in 0.35in;
+    min-height: 11in;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 14px;
+    align-items: end;
+    padding-bottom: 9px;
+    margin-bottom: 9px;
+    border-bottom: 4px double var(--teal);
+  }
+  .firm-eyebrow {
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 2px;
+  }
+  .doc-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22pt;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 2px 0;
+  }
+  .doc-subtitle {
+    font-size: 8.5pt;
+    color: var(--mid);
+    font-weight: 300;
+    margin-top: 2px;
+  }
+  .header-pill {
+    background: var(--teal);
+    color: var(--white);
+    padding: 8px 13px;
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.7;
+    white-space: nowrap;
+  }
+  .header-pill span {
+    display: block;
+    color: #a8dde5;
+    font-style: italic;
+    font-weight: 300;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 8.5pt;
+  }
+
+  /* ── PURPOSE BAND ── */
+  .purpose {
+    background: var(--amber-light);
+    border-left: 4px solid var(--amber);
+    padding: 6px 11px;
+    font-size: 8pt;
+    color: #5a3a00;
+    margin-bottom: 9px;
+    line-height: 1.55;
+  }
+  .purpose strong { color: var(--gold); font-weight: 700; }
+
+  /* ── INTAKE ── */
+  .intake {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px 12px;
+    background: var(--teal-light);
+    border-left: 5px solid var(--teal);
+    padding: 8px 11px;
+    margin-bottom: 10px;
+  }
+  .f label {
+    font-size: 6.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--teal);
+    display: block;
+    margin-bottom: 1px;
+  }
+  .f input {
+    width: 100%;
+    border: none;
+    border-bottom: 1.5px solid var(--teal);
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9pt;
+    color: var(--ink);
+    padding: 1px 0;
+    outline: none;
+  }
+  .f input:focus { border-bottom-color: var(--amber); }
+
+  /* ── SECTION HEADER ── */
+  .sec-head {
+    display: flex;
+    align-items: center;
+    background: var(--teal);
+    color: var(--white);
+    padding: 4px 10px;
+    gap: 7px;
+    margin-bottom: 4px;
+  }
+  .sec-letter {
+    font-family: 'DM Serif Display', serif;
+    font-size: 14pt;
+    color: #a8dde5;
+    min-width: 18px;
+    line-height: 1;
+  }
+  .sec-name { font-size: 8pt; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .sec-who  { margin-left: auto; font-size: 6.5pt; color: #a8dde5; font-style: italic; }
+
+  /* ── SCAN TABLE ── */
+  .scan-table { width: 100%; border-collapse: collapse; margin-bottom: 9px; }
+  .scan-table th {
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--teal);
+    background: var(--teal-light);
+    padding: 3.5px 7px;
+    text-align: left;
+    border: 1px solid var(--rule);
+  }
+  .scan-table td {
+    font-size: 8.5pt;
+    padding: 3.5px 7px;
+    border: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .scan-table tr:nth-child(even) td { background: #f7fbfc; }
+
+  .col-chk  { width: 3%; text-align: center; }
+  .col-item { width: 43%; }
+  .col-yn   { width: 9%; text-align: center; }
+  .col-stat { width: 14%; }
+  .col-tlf  { width: 31%; }
+
+  .col-chk input[type="checkbox"] { accent-color: var(--teal); width: 12px; height: 12px; }
+
+  .it-main { line-height: 1.35; font-size: 8.5pt; }
+  .it-sub  { font-size: 7pt; color: var(--mid); margin-top: 1px; }
+  .it-flag { font-size: 7pt; color: var(--red); font-weight: 700; margin-top: 1px; }
+
+  .yn-wrap { display: flex; gap: 8px; justify-content: center; align-items: center; }
+  .yn-wrap label { font-size: 7.5pt; color: var(--mid); }
+  .yn-wrap input[type="radio"] { accent-color: var(--teal); }
+
+  .stat-sel {
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 7.5pt;
+    border: 1px solid var(--rule);
+    padding: 2px 3px;
+    outline: none;
+    background: var(--white);
+    color: var(--ink);
+  }
+
+  /* Service tag chips */
+  .tlf-tags { display: flex; flex-wrap: wrap; gap: 3px; }
+  .tag {
+    font-size: 6.5pt;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 2px 6px;
+    border-radius: 1px;
+    white-space: nowrap;
+  }
+  .tag-tv   { background: var(--amber-light); color: var(--gold); border: 1px solid #fcd34d; }
+  .tag-ss   { background: #fde8ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .tag-ai   { background: #dbeafe; color: #1e3a8a; border: 1px solid #93c5fd; }
+  .tag-ewa  { background: var(--green-light); color: var(--green); border: 1px solid #86efac; }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
+    background: var(--smoke);
+    border: 1px solid var(--rule);
+    padding: 5px 10px;
+    margin-bottom: 9px;
+    font-size: 7pt;
+  }
+  .legend-label { font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--teal); margin-right: 4px; }
+  .legend-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ── TWO-COL BOTTOM ── */
+  .bottom { display: grid; grid-template-columns: 1.15fr 1fr; gap: 9px; margin-top: 8px; }
+
+  /* Readiness meter */
+  .meter-box { border: 1px solid var(--rule); padding: 8px 10px; }
+  .meter-box h4 {
+    font-size: 7pt; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.09em; color: var(--teal);
+    border-bottom: 1px solid var(--rule); padding-bottom: 3px; margin-bottom: 7px;
+  }
+
+  .meter-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-bottom: 7px; }
+  .m-cell {
+    border: 1.5px solid var(--rule);
+    padding: 5px 4px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .m-cell:has(input:checked) { border-color: var(--teal); background: var(--teal-light); }
+  .m-cell:has(input:checked) .m-label { color: var(--teal); }
+  .m-cell input[type="radio"] { display: none; }
+  .m-label { font-size: 7.5pt; font-weight: 700; display: block; cursor: pointer; }
+  .m-desc  { font-size: 6.5pt; color: var(--mid); display: block; margin-top: 2px; line-height: 1.35; }
+
+  .priority-list { margin-top: 5px; }
+  .priority-list p { font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--teal); margin-bottom: 4px; }
+  .p-row { display: grid; grid-template-columns: 14px 1fr; gap: 4px; align-items: start; padding: 2.5px 0; border-bottom: 1px dashed #d5e4e7; font-size: 8pt; }
+  .p-row:last-child { border-bottom: none; }
+  .p-row input[type="checkbox"] { accent-color: var(--teal); margin-top: 1px; }
+  .p-row input[type="text"] {
+    width: 100%; border: none; border-bottom: 1px solid var(--rule);
+    font-size: 7.5pt; font-family: 'DM Sans', sans-serif;
+    background: transparent; outline: none; color: var(--mid);
+  }
+
+  /* Notes panel */
+  .notes-panel { border: 1px solid var(--rule); padding: 8px 10px; }
+  .notes-panel h4 {
+    font-size: 7pt; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.09em; color: var(--teal);
+    border-bottom: 1px solid var(--rule); padding-bottom: 3px; margin-bottom: 6px;
+  }
+  .notes-panel textarea {
+    width: 100%; height: 72px;
+    border: none; background: var(--smoke);
+    font-family: 'DM Sans', sans-serif; font-size: 8.5pt;
+    padding: 4px 6px; resize: none; outline: none; color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .notes-panel textarea:focus { outline: 1px solid var(--teal); }
+
+  /* Recommended services checklist */
+  .svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 10px; }
+  .svc-item { display: flex; align-items: center; gap: 5px; font-size: 7.5pt; padding: 1.5px 0; }
+  .svc-item input[type="checkbox"] { accent-color: var(--teal); flex-shrink: 0; }
+  .svc-dot { width: 8px; height: 8px; flex-shrink: 0; }
+
+  /* ── SIG ROW ── */
+  .sig-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 9px;
+    padding-top: 7px;
+    border-top: 2px double var(--teal);
+  }
+  .sig-f label {
+    font-size: 6.5pt; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--mid); display: block; margin-bottom: 2px;
+  }
+  .sig-f input {
+    width: 100%; border: none; border-bottom: 1.5px solid var(--rule);
+    background: transparent; font-family: 'DM Sans', sans-serif;
+    font-size: 9.5pt; padding: 1px 0; outline: none;
+  }
+  .sig-f input:focus { border-bottom-color: var(--teal); }
+
+  /* ── FOOTER ── */
+  .footer {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 9px; padding-top: 6px;
+    border-top: 2px double var(--teal);
+    font-size: 7pt; color: var(--mid);
+  }
+  .footer-brand { color: var(--teal); font-weight: 700; }
+
+  @media print {
+    body { background: white; }
+    .page { margin: 0; padding: 0.35in 0.46in; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="firm-eyebrow">The Language Firm · languagefirm.org</div>
+      <div class="doc-title">AI Readiness Scan</div>
+      <div class="doc-subtitle">K–12 Districts · Rapid Self-Assessment · Policy, Data Protection, Language Access &amp; Staff Readiness · Tool Vault Diagnostic</div>
+    </div>
+    <div class="header-pill">
+      K–12 TOOLKIT
+      <span>AI Governance Series</span>
+    </div>
+  </div>
+
+  <!-- PURPOSE -->
+  <div class="purpose">
+    <strong>How to use:</strong> Complete this scan before adopting any AI tool, prior to a monitoring visit, or during annual technology review. Each item maps to a Language Firm service so you know exactly where to focus and what support is available. A "No" or "Partial" on any item signals a gap that may affect federal compliance.
+  </div>
+
+  <!-- INTAKE -->
+  <div class="intake">
+    <div class="f"><label>District / School Name</label><input type="text" placeholder="Full legal name"></div>
+    <div class="f"><label>Completing This Scan</label><input type="text" placeholder="Name &amp; title"></div>
+    <div class="f"><label>Current AI Tools in Use</label><input type="text" placeholder="List or 'none identified'"></div>
+    <div class="f"><label>Scan Date</label><input type="text" placeholder="mm/dd/yyyy"></div>
+  </div>
+
+  <!-- SERVICE TAG LEGEND -->
+  <div class="legend">
+    <span class="legend-label">TLF Service Key →</span>
+    <div class="legend-item"><span class="tag tag-tv">Tool Vault</span><span>Weekly AI incident intel &amp; tool research (Bulletin + District Filing)</span></div>
+    <div class="legend-item"><span class="tag tag-ss">SSES</span><span>Scope &amp; Sequence Evidence System — curriculum alignment &amp; AI guardrails</span></div>
+    <div class="legend-item"><span class="tag tag-ai">AI &amp; DataGuard</span><span>AI governance, student data privacy &amp; federal compliance packages</span></div>
+    <div class="legend-item"><span class="tag tag-ewa">EWA Maintenance Core</span><span>Recurring evidence workflow build &amp; audit-readiness upkeep</span></div>
+  </div>
+
+  <!-- SECTION A -->
+  <div class="sec-head">
+    <span class="sec-letter">A</span>
+    <span class="sec-name">Policy &amp; Governance — Does the District Have the Basics in Place?</span>
+    <span class="sec-who">Curriculum Director / Superintendent</span>
+  </div>
+  <table class="scan-table">
+    <thead>
+      <tr>
+        <th class="col-chk">✓</th>
+        <th class="col-item">Scan Item</th>
+        <th class="col-yn" colspan="2">Yes / No / Partial</th>
+        <th class="col-stat">Status</th>
+        <th class="col-tlf">If "No" or "Partial" → TLF Can Help</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-chk"><input type="checkbox"></td>
+        <td><div class="it-main">Board-adopted AI Use Policy (or interim policy) exists and is current</div><div class="it-sub">Covers staff use, student use, and content generated for official purposes</div></td>
+        <td colspan="2">
+          <div class="yn-wrap">
+            <input type="radio" name="a1" id="a1y"><label for="a1y">Yes</label>
+            <input type="radio" name="a1" id="a1p"><label for="a1p">Part.</label>
+            <input type="radio" name="a1" id="a1n"><label for="a1n">No</label>
+          </div>
+        </td>
+        <td><select class="stat-sel"><option value="">—</option><option>✓ In Place</option><option>⚠ Draft Only</option><option>✗ Gap</option></select></td>
+        <td><div class="tlf-tags"><span class="tag tag-ai">AI &amp; DataGuard</span><span class="tag tag-ewa">EWA Maintenance Core</span></div></td>
+      </tr>
+      <tr>
+        <td class="col-chk"><input type="checkbox"></td>
+        <td><div class="it-main">Acceptable Use Policy (AUP) updated to address AI tools explicitly</div><div class="it-sub">Students and parents notified; available in community languages</div></td>
+        <td colspan="2">
+          <div class="yn-wrap">
+            <input type="radio" name="a2" id="a2y"><label for="a2y">Yes</label>
+            <input type="radio" name="a2" id="a2p"><label for="a2p">Part.</label>
+            <input type="radio" name="a2" id="a2n"><label for="a2n">No</label>
+          </div>
+        </td>
+        <td><select class="stat-sel"><option value="">—</option><option>✓ In Place</option><option>⚠ Draft Only</option><option>✗ Gap</option></select></td>
+        <td><div class="tlf-tags"><span class="tag tag-ai">AI &amp; DataGuard</span><span class="tag tag-ss">SSES</span></div></td>
+      </tr>
+      <tr>
+        <td class="col-chk"><input type="checkbox"></td>
+        <td><div class="it-main">Designated staff role or committee responsible for AI tool review and approval</div><div class="it-sub">No open-door adoption — someone owns the vetting process</div></td>
+        <td colspan="2">
+          <div class="yn-wrap">
+            <input type="radio" name="a3" id="a3y"><label for="a3y">Yes</label>
+            <input type="radio" name="a3" id="a3p"><label for="a3p">Part.</label>
+            <input type="radio" name="a3" id="a3n"><label for="a3n">No</label>
+          </div>
+        </td>
+        <td><select class="stat-sel"><option value="">—</option><option>✓ In Place</option><option>⚠ Draft Only</option><option>✗ Gap</option></select></td>
+        <td><div class="tlf-tags"><span class="tag tag-tv">Tool Vault</span><span class="tag tag-ai">AI &amp; DataGuard</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION B -->
+  <div class="sec-head">
+    <span class="sec-letter">B</span>
+    <span class="sec-name">Student Data &amp; Federal Compliance — Are Students Protected?</span>
+    <span class="sec-who">Tech Director / Federal Programs Coordinator</span>
+  </div>
+  <table class="scan-table">
+    <thead>
+      <tr>
+        <th class="col-chk">✓</th>
+        <th class="col-item">Scan Item</th>
+        <th class="col-yn" colspan="2">Yes / No / Partial</th>
+        <th class="col-stat">Status</th>
+        <th class="col-tlf">If "No" or "Partial" → TLF Can Help</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-chk"><input type="checkbox"></td>
+        <td><div class="it-main">Every AI tool used with student data has an executed DPA on file</div><div class="it-flag">⚑ Audit red flag: tools without DPAs are a FERPA violation waiting to happen</div></td>
+        <td colspan="2">
+          <div class="yn-wrap">
+            <input type="radio" name="b1" id="b1y"><label for="b1y">Yes</label>
+            <input type="radio" name="b1" id="b1p"><label for="b1p">Part.</label>
+            <input type="radio" name="b1" id="b1n"><label for="b1n">No</label>
+          </div>
+        </td>
+        <td><select class="stat-sel"><option value="">—</option><option>✓ Verified</option><option>⚠ Pending</option><option>✗ Gap</option></select></td>
+        <td><div class="tlf-tags"><span class="tag tag-tv">Tool Vault</span><span class="tag tag-ewa">EWA Maintenance Core</span></div></td>
+      </tr>
+      <tr>
+        <td class="col-chk"><input type="checkbox"></td>
+        <td><div class="it-main">No AI vendor uses student inputs to train its model (confirmed in contract)</div><div class="it-sub">Inferred or implied language is not sufficient — must be explicit</div></td>
+        <td colspan="2">
+          <div class="yn-wrap">
+            <input type="radio" name="b2" id="b2y"><label for="b2y">Yes</label>
+            <input type="radio" name="b2" id="b2p"><label for="b2p">Part.</label>
+            <input type="radio" name="b2" id="b2n"><label for="b2n">No</label>
+          </div>
+        </td>
+        <td><select class="stat-sel"><option value="">—</option><option>✓ Verified</option><option>⚠ Pending</option><option>✗ Gap</option></select></td>
+        <td><div class="tlf-tags"><span class="tag tag-tv">Tool Vault</span></div></td>
+      </tr>
+      <tr>
+        <td class="col-chk"><input type="checkbox"></td>
+        <td><div class="it-main">AI tools purchased with federal funds (Title I / III / IDEA / ESSER) verified as allowable</div><div class="it-sub">Supplement-not-supplant documented; funding source matched to approved use</div></td>
+        <td colspan="2">
+          <div class="yn-wrap">
+            <input type="radio" name="b3" id="b3y"><label for="b3y">Yes</label>
+            <input type="radio" name="b3" id="b3p"><label for="b3p">Part.</label>
+            <input type="radio" name="b3" id="b3n"><label for="b3n">No</label>
+          </div>
+        </td>
+        <td><select class="stat-sel"><option value="">—</option><option>✓ Verified</option><option>⚠ Pending</option><option>✗ Gap</option></select></td>
+        <td><div class="tlf-tags"><span class="tag tag-ai">AI &amp; DataGuard</span><span class="tag tag-ewa">EWA Maintenance Core</span></div></td>
+      </tr>
+      <tr>
+        <td class="col-chk"><input type="checkbox"></td>
+        <td><div class="it-main">AI-generated content in grant reports, APRs, or federal submissions reviewed by staff before filing</div><div class="it-flag">⚑ Unverified AI output in federal submissions = material misrepresentation risk</div></td>
+        <td colspan="2">
+          <div class="yn-wrap">
+            <input type="radio" name="b4" id="b4y"><label for="b4y">Yes</label>
+            <input type="radio" name="b4" id="b4p"><label for="b4p">Part.</label>
+            <input type="radio" name="b4" id="b4n"><label for="b4n">No</label>
+          </div>
+        </td>
+        <td><select class="stat-sel"><option value="">—</option><option>✓ Process Set</option><option>⚠ Informal</option><option>✗ Gap</option></select></td>
+        <td><div class="tlf-tags"><span class="tag tag-ewa">EWA Maintenance Core</span><span class="tag tag-ai">AI &amp; DataGuard</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION C -->
+  <div class="sec-head">
+    <span class="sec-letter">C</span>
+    <span class="sec-name">Language Access &amp; Equity — Do AI Tools Work for All Families?</span>
+    <span class="sec-who">EL / Title III Coordinator</span>
+  </div>
+  <table class="scan-table">
+    <thead>
+      <tr>
+        <th class="col-chk">✓</th>
+        <th class="col-item">Scan Item</th>
+        <th class="col-yn" colspan="2">Yes / No / Partial</th>
+        <th class="col-stat">Status</th>
+        <th class="col-tlf">If "No" or "Partial" → TLF Can Help</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-chk"><input type="checkbox"></td>
+        <td><div class="it-main">AI tools used with EL students or families available in languages spoken by district communities</div><div class="it-sub">Title VI / Title III — inaccessible tools create a civil-rights exposure</div></td>
+        <td colspan="2">
+          <div class="yn-wrap">
+            <input type="radio" name="c1" id="c1y"><label for="c1y">Yes</label>
+            <input type="radio" name="c1" id="c1p"><label for="c1p">Part.</label>
+            <input type="radio" name="c1" id="c1n"><label for="c1n">No</label>
+          </div>
+        </td>
+        <td><select class="stat-sel"><option value="">—</option><option>✓ Verified</option><option>⚠ Partial</option><option>✗ Gap</option></select></td>
+        <td><div class="tlf-tags"><span class="tag tag-ss">SSES</span><span class="tag tag-ai">AI &amp; DataGuard</span></div></td>
+      </tr>
+      <tr>
+        <td class="col-chk"><input type="checkbox"></td>
+        <td><div class="it-main">AI-generated feedback or instructional content reviewed for bias against EL students or students of color</div><div class="it-sub">Document who reviews, how often, and what the escalation path is</div></td>
+        <td colspan="2">
+          <div class="yn-wrap">
+            <input type="radio" name="c2" id="c2y"><label for="c2y">Yes</label>
+            <input type="radio" name="c2" id="c2p"><label for="c2p">Part.</label>
+            <input type="radio" name="c2" id="c2n"><label for="c2n">No</label>
+          </div>
+        </td>
+        <td><select class="stat-sel"><option value="">—</option><option>✓ Process Set</option><option>⚠ Informal</option><option>✗ Gap</option></select></td>
+        <td><div class="tlf-tags"><span class="tag tag-ss">SSES</span><span class="tag tag-ewa">EWA Maintenance Core</span></div></td>
+      </tr>
+      <tr>
+        <td class="col-chk"><input type="checkbox"></td>
+        <td><div class="it-main">Parent-facing AI-assisted communications (portals, chatbots, automated messages) available in community languages</div><div class="it-sub">Machine translation acceptable for general use; vital notices require human review</div></td>
+        <td colspan="2">
+          <div class="yn-wrap">
+            <input type="radio" name="c3" id="c3y"><label for="c3y">Yes</label>
+            <input type="radio" name="c3" id="c3p"><label for="c3p">Part.</label>
+            <input type="radio" name="c3" id="c3n"><label for="c3n">No</label>
+          </div>
+        </td>
+        <td><select class="stat-sel"><option value="">—</option><option>✓ Verified</option><option>⚠ Partial</option><option>✗ Gap</option></select></td>
+        <td><div class="tlf-tags"><span class="tag tag-ss">SSES</span><span class="tag tag-tv">Tool Vault</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION D -->
+  <div class="sec-head">
+    <span class="sec-letter">D</span>
+    <span class="sec-name">Staff Readiness — Can Your Team Use AI Responsibly?</span>
+    <span class="sec-who">HR / Professional Development Lead</span>
+  </div>
+  <table class="scan-table" style="margin-bottom:8px">
+    <thead>
+      <tr>
+        <th class="col-chk">✓</th>
+        <th class="col-item">Scan Item</th>
+        <th class="col-yn" colspan="2">Yes / No / Partial</th>
+        <th class="col-stat">Status</th>
+        <th class="col-tlf">If "No" or "Partial" → TLF Can Help</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-chk"><input type="checkbox"></td>
+        <td><div class="it-main">Staff have received documented AI use training (appropriate vs. prohibited use, data protection)</div><div class="it-sub">Retain sign-in sheets or completion records; annual refresher recommended</div></td>
+        <td colspan="2">
+          <div class="yn-wrap">
+            <input type="radio" name="d1" id="d1y"><label for="d1y">Yes</label>
+            <input type="radio" name="d1" id="d1p"><label for="d1p">Part.</label>
+            <input type="radio" name="d1" id="d1n"><label for="d1n">No</label>
+          </div>
+        </td>
+        <td><select class="stat-sel"><option value="">—</option><option>✓ Documented</option><option>⚠ Informal</option><option>✗ Gap</option></select></td>
+        <td><div class="tlf-tags"><span class="tag tag-ai">AI &amp; DataGuard</span><span class="tag tag-ewa">EWA Maintenance Core</span></div></td>
+      </tr>
+      <tr>
+        <td class="col-chk"><input type="checkbox"></td>
+        <td><div class="it-main">Staff know how to identify whether an AI tool is appropriate for use with federally funded programs</div><div class="it-sub">Not just "can I use it" — but "can I use it <em>with this grant and these students</em>"</div></td>
+        <td colspan="2">
+          <div class="yn-wrap">
+            <input type="radio" name="d2" id="d2y"><label for="d2y">Yes</label>
+            <input type="radio" name="d2" id="d2p"><label for="d2p">Part.</label>
+            <input type="radio" name="d2" id="d2n"><label for="d2n">No</label>
+          </div>
+        </td>
+        <td><select class="stat-sel"><option value="">—</option><option>✓ Trained</option><option>⚠ Partial</option><option>✗ Gap</option></select></td>
+        <td><div class="tlf-tags"><span class="tag tag-tv">Tool Vault</span><span class="tag tag-ai">AI &amp; DataGuard</span></div></td>
+      </tr>
+      <tr>
+        <td class="col-chk"><input type="checkbox"></td>
+        <td><div class="it-main">AI tool settings reviewed and configured at district level (data sharing off, content filters on, student data not submitted)</div><div class="it-sub">Default vendor settings often share more than districts realize — settings check is step one</div></td>
+        <td colspan="2">
+          <div class="yn-wrap">
+            <input type="radio" name="d3" id="d3y"><label for="d3y">Yes</label>
+            <input type="radio" name="d3" id="d3p"><label for="d3p">Part.</label>
+            <input type="radio" name="d3" id="d3n"><label for="d3n">No</label>
+          </div>
+        </td>
+        <td><select class="stat-sel"><option value="">—</option><option>✓ Configured</option><option>⚠ Partial</option><option>✗ Gap</option></select></td>
+        <td><div class="tlf-tags"><span class="tag tag-tv">Tool Vault</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- BOTTOM -->
+  <div class="bottom">
+
+    <div class="meter-box">
+      <h4>Overall AI Readiness Rating</h4>
+      <div class="meter-grid">
+        <div class="m-cell"><input type="radio" name="meter" id="m1"><label class="m-label" for="m1">1 — Not Started</label><span class="m-desc">No policy, tools unvetted, no training</span></div>
+        <div class="m-cell"><input type="radio" name="meter" id="m2"><label class="m-label" for="m2">2 — Early Stage</label><span class="m-desc">Some tools in use; policy in draft; gaps present</span></div>
+        <div class="m-cell"><input type="radio" name="meter" id="m3"><label class="m-label" for="m3">3 — Developing</label><span class="m-desc">Policy exists; most tools vetted; training underway</span></div>
+        <div class="m-cell"><input type="radio" name="meter" id="m4"><label class="m-label" for="m4">4 — Compliant</label><span class="m-desc">DPAs executed, policy live, training documented</span></div>
+      </div>
+      <div class="priority-list">
+        <p>Priority Actions (Top 3)</p>
+        <div class="p-row"><input type="checkbox"><input type="text" placeholder="1. Action · Owner · Target date…"></div>
+        <div class="p-row"><input type="checkbox"><input type="text" placeholder="2. Action · Owner · Target date…"></div>
+        <div class="p-row"><input type="checkbox"><input type="text" placeholder="3. Action · Owner · Target date…"></div>
+      </div>
+    </div>
+
+    <div class="notes-panel">
+      <h4>TLF Services Recommended Based on Scan Results</h4>
+      <div class="svc-grid" style="margin-bottom:6px">
+        <div class="svc-item"><input type="checkbox"><span class="tag tag-tv" style="font-size:7pt">Tool Vault</span><span style="font-size:7.5pt"> — Weekly AI incident intel &amp; tool research</span></div>
+        <div class="svc-item"><input type="checkbox"><span class="tag tag-ai" style="font-size:7pt">AI &amp; DataGuard</span><span style="font-size:7.5pt"> — Governance, privacy &amp; compliance packages</span></div>
+        <div class="svc-item"><input type="checkbox"><span class="tag tag-ss" style="font-size:7pt">SSES</span><span style="font-size:7.5pt"> — Scope &amp; Sequence Evidence System</span></div>
+        <div class="svc-item"><input type="checkbox"><span class="tag tag-ewa" style="font-size:7pt">EWA Maintenance Core</span><span style="font-size:7.5pt"> — Evidence workflow build &amp; upkeep</span></div>
+      </div>
+      <h4 style="margin-top:5px">Notes &amp; Follow-Up</h4>
+      <textarea placeholder="Observations from scan, open questions, next steps, or notes for TLF consultation…"></textarea>
+    </div>
+
+  </div>
+
+  <!-- SIG ROW -->
+  <div class="sig-row">
+    <div class="sig-f"><label>Completed By (Name &amp; Title)</label><input type="text" placeholder="Print name"></div>
+    <div class="sig-f"><label>Reviewed By / Administrator</label><input type="text" placeholder="Print name &amp; title"></div>
+    <div class="sig-f"><label>Next Review / Follow-Up Date</label><input type="text" placeholder="mm/dd/yyyy"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span><span class="footer-brand">The Language Firm</span> · languagefirm.org · AI Governance &amp; Audit Readiness for K–12</span>
+    <span>AI Governance Series · For internal compliance use · Not legal advice · Retain per local records schedule</span>
+  </div>
+
+</div>
+</body>
+</html>
