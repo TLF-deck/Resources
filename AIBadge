@@ -137,11 +137,22 @@
   .btn {
     font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.3px;
     padding: 10px 18px; border-radius: 3px; border: 2px solid var(--dark);
-    background: var(--dark); color: var(--white); cursor: pointer; transition: background 0.15s;
+    background: var(--dark); color: var(--white); cursor: pointer; transition: background 0.15s, opacity 0.15s;
   }
   .btn:hover { background: #244d62; }
   .btn.outline { background: var(--white); color: var(--dark); }
   .btn.outline:hover { background: var(--gray-lt); }
+  .btn.success { background: var(--green); border-color: var(--green); }
+ 
+  .toast {
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(12px);
+    background: var(--dark); color: var(--white);
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+    padding: 10px 20px; border-radius: 4px;
+    opacity: 0; transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none; white-space: nowrap; z-index: 999;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
  
   .footer-note {
     margin-top: 28px; padding: 18px 22px; background: var(--white); border-radius: 6px;
@@ -150,7 +161,23 @@
   }
   .footer-note strong { color: var(--dark); }
  
+  /* Hidden SVG badge used for download */
+  #badge-source { position: absolute; left: -9999px; top: -9999px; }
+ 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+ 
+  @media print {
+    body { background: white; }
+    .actions, .toast { display: none; }
+    .wrap { padding: 20px; }
+    .verified-strip { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .statbar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .school-tag { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .cert-item.met, .cert-item.scope { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .cal-context { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .footer-note { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    * { animation: none !important; }
+  }
  
   @media (max-width: 600px) {
     .record-grid { grid-template-columns: 1fr 1fr; }
@@ -158,10 +185,27 @@
     .statbar { flex-direction: column; }
     .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
     .stat:last-child { border-bottom: none; }
+    .actions { flex-direction: column; }
+    .btn { text-align: center; }
   }
 </style>
 </head>
 <body>
+ 
+<!-- Hidden SVG used as badge source for canvas download -->
+<svg id="badge-source" xmlns="http://www.w3.org/2000/svg" width="400" height="440" viewBox="0 0 110 120">
+  <path d="M55 8 L96 24 L96 62 Q96 90 55 112 Q14 90 14 62 L14 24 Z" fill="#D4E6F5" stroke="#1A5FA0" stroke-width="2" stroke-opacity="0.7"/>
+  <path d="M55 18 L88 31 L88 62 Q88 84 55 102 Q22 84 22 62 L22 31 Z" fill="none" stroke="#1A5FA0" stroke-width="1" stroke-opacity="0.25"/>
+  <line x1="40" y1="46" x2="70" y2="46" stroke="#1A5FA0" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.8"/>
+  <line x1="40" y1="56" x2="70" y2="56" stroke="#1A5FA0" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.8"/>
+  <line x1="40" y1="66" x2="58" y2="66" stroke="#1A5FA0" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.8"/>
+  <text x="55" y="88" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#1A5FA0" opacity="0.9">2026</text>
+  <path id="arc-dl" d="M26 40 A33 33 0 0 1 84 40" fill="none"/>
+  <text font-family="Arial, sans-serif" font-size="6.5" font-weight="700" fill="#1A5FA0" opacity="0.55">
+    <textPath href="#arc-dl" startOffset="50%" text-anchor="middle" letter-spacing="1.5">AI COMPLIANCE CHECKUP</textPath>
+  </text>
+</svg>
+ 
 <div class="wrap">
  
   <div class="verified-strip">
@@ -287,9 +331,9 @@
   </div>
  
   <div class="actions">
-    <button class="btn">Download badge assets</button>
-    <button class="btn outline">Copy verification URL</button>
-    <button class="btn outline">Print record</button>
+    <button class="btn" id="btn-download" onclick="downloadBadge()">Download badge assets</button>
+    <button class="btn outline" id="btn-copy" onclick="copyURL()">Copy verification URL</button>
+    <button class="btn outline" id="btn-print" onclick="printRecord()">Print record</button>
   </div>
  
   <div class="footer-note">
@@ -297,6 +341,103 @@
   </div>
  
 </div>
+ 
+<div class="toast" id="toast"></div>
+ 
+<script>
+  // ── TOAST helper ──
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }
+ 
+  // ── COPY URL ──
+  function copyURL() {
+    const url = 'https://verify.languagefirm.org/cert/ESS-2026-07134';
+    const btn = document.getElementById('btn-copy');
+    navigator.clipboard.writeText(url).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('success');
+      showToast('Verification URL copied to clipboard');
+      setTimeout(() => {
+        btn.textContent = 'Copy verification URL';
+        btn.classList.remove('success');
+      }, 2200);
+    }).catch(() => {
+      // fallback for older browsers
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('Verification URL copied to clipboard');
+    });
+  }
+ 
+  // ── PRINT ──
+  function printRecord() {
+    window.print();
+  }
+ 
+  // ── DOWNLOAD BADGE (SVG + PNG via canvas) ──
+  function downloadBadge() {
+    const btn = document.getElementById('btn-download');
+    btn.textContent = 'Preparing...';
+    btn.disabled = true;
+ 
+    // 1. Download SVG file
+    const svgEl = document.getElementById('badge-source');
+    const svgData = new XMLSerializer().serializeToString(svgEl);
+    const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+    const svgURL = URL.createObjectURL(svgBlob);
+    const svgLink = document.createElement('a');
+    svgLink.href = svgURL;
+    svgLink.download = 'ESS-2026-badge.svg';
+    svgLink.click();
+    URL.revokeObjectURL(svgURL);
+ 
+    // 2. Download PNG via canvas (slight delay so both downloads register)
+    setTimeout(() => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 400;
+      canvas.height = 440;
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      const svgBlob2 = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      const url2 = URL.createObjectURL(svgBlob2);
+      img.onload = function() {
+        ctx.drawImage(img, 0, 0, 400, 440);
+        URL.revokeObjectURL(url2);
+        const pngLink = document.createElement('a');
+        pngLink.download = 'ESS-2026-badge.png';
+        pngLink.href = canvas.toDataURL('image/png');
+        pngLink.click();
+        btn.textContent = 'Downloaded!';
+        btn.classList.add('success');
+        showToast('SVG + PNG downloaded — check your downloads folder');
+        setTimeout(() => {
+          btn.textContent = 'Download badge assets';
+          btn.classList.remove('success');
+          btn.disabled = false;
+        }, 2400);
+      };
+      img.onerror = function() {
+        // SVG-to-canvas can fail in some browsers due to CORS on fonts
+        // Fall back to SVG only with a note
+        showToast('SVG downloaded — PNG unavailable in this browser');
+        btn.textContent = 'Download badge assets';
+        btn.classList.remove('success');
+        btn.disabled = false;
+      };
+      img.src = url2;
+    }, 400);
+  }
+</script>
 </body>
 </html>
+ 
  
