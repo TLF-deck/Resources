@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EWA Lexicon — Federal Compliance Edition · The Language Firm</title>
+<title>EWA Lexicon — Federal Compliance Edition v3 · The Language Firm</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -14,21 +14,23 @@
     --blue-bg:  #D4E6F5;
     --red:      #8B1A2A;
     --red-bg:   #F0D4D8;
+    --green:    #2E5E4A;
+    --green-bg: #D4EDE4;
+    --purple:   #4A2E7A;
+    --purple-bg:#EDE4F5;
     --gray:     #6B7C8A;
     --gray-lt:  #E8EDF1;
     --body:     #333333;
     --bg:       #F2F4F6;
     --white:    #FFFFFF;
   }
- 
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); font-family: 'DM Sans', sans-serif; color: var(--body); line-height: 1.6; }
- 
- 
- 
+
   /* WRAPPER */
   .cal-wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px 64px; }
- 
+
   /* HEADER */
   .cal-header { margin-bottom: 40px; animation: fadeUp 0.5s ease both 0.05s; }
   .cal-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
@@ -36,121 +38,138 @@
   .cal-title { font-family: 'Fraunces', serif; font-size: clamp(28px, 4vw, 42px); font-weight: 700; color: var(--dark); line-height: 1.15; margin-bottom: 12px; }
   .cal-title em { font-style: italic; font-weight: 300; color: var(--accent); }
   .cal-desc { font-size: 14.5px; color: var(--gray); max-width: 620px; line-height: 1.7; margin-bottom: 18px; }
- 
+
   /* SCOPE BANNER */
   .cal-scope-banner { display: flex; align-items: flex-start; gap: 14px; background: var(--dark); color: rgba(255,255,255,0.85); border-radius: 5px; padding: 16px 20px; font-size: 13px; line-height: 1.65; margin-bottom: 28px; }
   .cal-scope-banner strong { color: var(--white); }
   .cal-scope-banner .scope-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
- 
+
+  /* VERSION CHANGELOG */
+  .cal-changelog { background: var(--white); border-left: 4px solid var(--green); border-radius: 0 6px 6px 0; padding: 18px 20px; margin-bottom: 28px; font-size: 13px; color: var(--gray); line-height: 1.65; animation: fadeUp 0.5s ease both 0.12s; }
+  .cal-changelog strong { color: var(--dark); }
+  .cal-changelog ul { list-style: none; padding: 0; margin-top: 8px; }
+  .cal-changelog ul li { padding-left: 18px; position: relative; margin-bottom: 4px; }
+  .cal-changelog ul li::before { content: '+'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
   /* SECTION LABELS */
   .cal-section-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gray); padding: 6px 0; border-bottom: 1px solid var(--gray-lt); margin-bottom: 16px; margin-top: 40px; }
- 
+
   /* ENTRIES */
   .cal-entries { display: flex; flex-direction: column; gap: 16px; }
- 
+
   .cal-entry { background: var(--white); border-radius: 6px; overflow: hidden; box-shadow: 0 1px 6px rgba(27,58,75,0.07); transition: box-shadow 0.2s, transform 0.2s; animation: fadeUp 0.4s ease both; border-left: 5px solid var(--accent); }
   .cal-entry:hover { box-shadow: 0 4px 20px rgba(27,58,75,0.12); transform: translateY(-1px); }
   .cal-entry.new-term { border-left-color: var(--amber); }
- 
+  .cal-entry.v3-term { border-left-color: var(--green); }
+
   .entry-inner { padding: 22px 26px; }
   .entry-top { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
- 
+
   .entry-badge { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; flex-shrink: 0; margin-top: 2px; background: var(--blue-bg); color: var(--accent); }
   .entry-badge.new { background: var(--amber-bg); color: var(--amber); }
- 
+  .entry-badge.v3 { background: var(--green-bg); color: var(--green); }
+
   .entry-title-block { flex: 1; min-width: 200px; }
   .entry-title { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 700; color: var(--dark); line-height: 1.25; margin-bottom: 3px; }
   .entry-citations { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--accent); }
- 
+
   .entry-body { font-size: 13.5px; line-height: 1.65; color: #555; margin-bottom: 14px; }
- 
+
   .entry-example { font-size: 12.5px; color: var(--accent); background: var(--blue-bg); border-radius: 3px; padding: 10px 14px; margin-bottom: 14px; line-height: 1.55; font-style: italic; }
   .entry-example strong { color: var(--dark); font-style: normal; }
- 
+
   .entry-anchor { background: var(--gray-lt); border-radius: 4px; padding: 10px 14px; }
   .entry-anchor-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--dark); margin-bottom: 4px; }
   .entry-anchor p { font-size: 13px; color: var(--body); line-height: 1.6; }
- 
+
   /* STAT BAR */
   .cal-statbar { display: flex; background: var(--dark); border-radius: 6px; overflow: hidden; margin-top: 48px; animation: fadeUp 0.5s ease both 0.3s; }
   .cal-stat { flex: 1; padding: 22px 28px; border-right: 1px solid rgba(255,255,255,0.1); }
   .cal-stat:last-child { border-right: none; }
   .cal-stat-val { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
   .cal-stat-lbl { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.4; }
- 
+
   /* FOOTER NOTE */
   .cal-footer-note { margin-top: 32px; padding: 20px 24px; background: var(--white); border-radius: 6px; border-left: 4px solid var(--amber); font-size: 13px; color: var(--gray); line-height: 1.65; animation: fadeUp 0.5s ease both 0.35s; }
   .cal-footer-note strong { color: var(--dark); }
   .cal-footer-note a { color: var(--accent); text-decoration: none; font-weight: 500; }
- 
+
   @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
- 
+
   @media (max-width: 600px) {
     .cal-wrap { padding: 32px 16px 48px; }
     .cal-statbar { flex-direction: column; }
     .cal-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
     .cal-stat:last-child { border-bottom: none; }
-    .cal-band { padding: 12px 20px; }
   }
 </style>
 </head>
 <body>
- 
- 
- 
+
 <div class="cal-wrap">
- 
+
   <div class="cal-header">
-    <div class="cal-eyebrow">The Language Firm · Educator Workflow Automation</div>
-    <h1 class="cal-title">EWA Lexicon<br><em>Federal Compliance Edition</em></h1>
-    <p class="cal-desc">29 operational terms grounded in federal law. Every definition is anchored to a specific statute — FERPA, IDEA, COPPA, PPRA, or the Title programs under ESEA. Use these in leadership meetings, board presentations, and tool evaluation conversations.</p>
+    <div class="cal-eyebrow">The Language Firm &middot; Education Workflow Automation</div>
+    <h1 class="cal-title">EWA Lexicon<br><em>Federal Compliance Edition &middot; Version 3</em></h1>
+    <p class="cal-desc">37 operational terms grounded in federal law and applied to the governance environment K-12 districts operate in today. Every definition is anchored to a specific statute, framework, or documented compliance obligation. Use these in leadership meetings, board presentations, vendor evaluation conversations, and incident response documentation.</p>
     <div class="cal-scope-banner">
-      <span class="scope-icon">📋</span>
+      <span class="scope-icon">&#x1F4CB;</span>
       <div>
-        <strong>For K–12 schools operating under federal law.</strong> Every term is grounded in a specific federal statute. Use the statute citations when someone asks why any of this matters. Print it. Share it. The more people in your district who speak this language, the faster you move from reactive to proactive — and from audit exposure to documented compliance.
+        <strong>For K-12 schools operating under federal law.</strong> Every term is grounded in a specific federal statute or published governance framework. Use the citations when someone asks why any of this matters. Print it. Share it. The more people in your district who speak this language, the faster you move from reactive to proactive, and from audit exposure to documented compliance.
       </div>
     </div>
   </div>
- 
+
+  <div class="cal-changelog">
+    <strong>What changed in Version 3.</strong> Eight new terms across two new sections reflect how the compliance landscape has shifted. Vendor accountability now extends beyond the DPA to the vendor's entire supply chain. Forensic language analysis names the specific investigative practice that identifies where document language fails. Existing term descriptions have been updated to reflect TLF's current positioning: compliance forensics, governance intelligence, and documented accountability.
+    <ul>
+      <li>New section: Vendor Accountability and Supply Chain (4 terms)</li>
+      <li>New section: Forensic Language Analysis (4 terms)</li>
+      <li>Updated descriptions across all existing terms to align with current TLF service model</li>
+      <li>Removed references to automation deployment services no longer offered</li>
+    </ul>
+  </div>
+
   <div class="cal-entries">
- 
-    <div class="cal-section-label" style="margin-top:0">Section 01 · Workflow &amp; Process</div>
- 
+
+    <!-- ═══════════════════════ SECTION 01 ═══════════════════════ -->
+    <div class="cal-section-label" style="margin-top:0">Section 01 &middot; Workflow &amp; Process</div>
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Workflow &amp; Process</div>
           <div class="entry-title-block">
             <div class="entry-title">Documentation Velocity</div>
-            <div class="entry-citations">FERPA § 99.10 · IDEA § 300.503</div>
+            <div class="entry-citations">FERPA &sect; 99.10 &middot; IDEA &sect; 300.503</div>
           </div>
         </div>
-        <p class="entry-body">The speed at which a school can produce, update, and locate compliance-critical documents. Low velocity is not just an operational inconvenience. FERPA requires schools to honor parent record access requests within 45 days (34 CFR §99.10), and IDEA requires Prior Written Notice before any change to a student's identification, evaluation, or placement (34 CFR §300.503). A school with low Documentation Velocity cannot meet either clock.</p>
+        <p class="entry-body">The speed at which a school can produce, update, and locate compliance-critical documents. Low velocity is not just an operational inconvenience. FERPA requires schools to honor parent record access requests within 45 days (34 CFR &sect;99.10), and IDEA requires Prior Written Notice before any change to a student's identification, evaluation, or placement (34 CFR &sect;300.503). A school with low Documentation Velocity cannot meet either clock.</p>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Clock</div>
-          <p>FERPA 34 CFR §99.10 — 45 days to honor parent access requests. IDEA 34 CFR §300.503 — PWN required before any proposed change.</p>
+          <p>FERPA 34 CFR &sect;99.10: 45 days to honor parent access requests. IDEA 34 CFR &sect;300.503: PWN required before any proposed change.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Workflow &amp; Process</div>
           <div class="entry-title-block">
             <div class="entry-title">Manual Overhead</div>
-            <div class="entry-citations">IDEA § 300.320 · FERPA § 99</div>
+            <div class="entry-citations">IDEA &sect; 300.320 &middot; FERPA &sect; 99</div>
           </div>
         </div>
-        <p class="entry-body">Total staff time consumed by tasks performed manually that could be partially or fully automated. Measured in hours/week per role. In a federal compliance context, Manual Overhead is significant because most of it is not optional work — it is the discharge of federal legal obligations under IDEA (IEP documentation, progress monitoring, Prior Written Notice) and FERPA (record keeping, access requests, disclosure tracking). The problem is not that the work exists. The problem is that no system has been built to do it efficiently.</p>
-        <div class="entry-example"><strong>Example:</strong> A SPED coordinator spending 6 hrs/wk manually drafting IEP meeting notifications is discharging an IDEA obligation (34 CFR §300.322), not doing optional paperwork.</div>
+        <p class="entry-body">Total staff time consumed by tasks performed manually that could be partially or fully streamlined. Measured in hours per week per role. In a federal compliance context, Manual Overhead is significant because most of it is not optional work; it is the discharge of federal legal obligations under IDEA (IEP documentation, progress monitoring, Prior Written Notice) and FERPA (record keeping, access requests, disclosure tracking). The problem is not that the work exists. The problem is that no system has been built to do it efficiently, and the documentation proving it was done may not survive review.</p>
+        <div class="entry-example"><strong>Example:</strong> A SPED coordinator spending 6 hrs/wk manually drafting IEP meeting notifications is discharging an IDEA obligation (34 CFR &sect;300.322), not doing optional paperwork.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
           <p>IDEA Part B requires documented IEP process at every stage. Time spent manually is time the system should absorb.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
@@ -160,76 +179,76 @@
             <div class="entry-citations">All governing statutes</div>
           </div>
         </div>
-        <p class="entry-body">A structured review of how a specific task is actually performed step by step. Reveals hidden steps, staff workarounds, undocumented tools, and compliance gaps that org charts and policy manuals do not capture. In the EWA context, a Process Audit is always conducted with the governing federal statute in view, because the question is not just "how is this done?" but "does how this is done satisfy what federal law requires?"</p>
-        <div class="entry-example"><strong>Example:</strong> Mapping how a SPED coordinator completes IEP documentation from referral to signed copy, against IDEA 34 CFR §300.320 requirements at each step.</div>
+        <p class="entry-body">A structured review of how a specific task is actually performed step by step. Reveals hidden steps, staff workarounds, undocumented tools, and compliance gaps that org charts and policy manuals do not capture. A Process Audit is always conducted with the governing federal statute in view, because the question is not just "how is this done?" but "does how this is done satisfy what federal law requires, and can the district produce the documentation to prove it?"</p>
+        <div class="entry-example"><strong>Example:</strong> Mapping how a SPED coordinator completes IEP documentation from referral to signed copy, against IDEA 34 CFR &sect;300.320 requirements at each step.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
           <p>The audit finds where daily practice diverges from federal obligation.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Workflow &amp; Process</div>
           <div class="entry-title-block">
             <div class="entry-title">Workflow</div>
-            <div class="entry-citations">FERPA · IDEA · COPPA · Title Programs</div>
+            <div class="entry-citations">FERPA &middot; IDEA &middot; COPPA &middot; Title Programs</div>
           </div>
         </div>
-        <p class="entry-body">A repeatable administrative process in one of five categories: Documentation and Record-Keeping, Communication Routing, Compliance and Reporting, Scheduling and Coordination, or Data Entry and Transfer. When a workflow is built inside the EWA Maintenance Core, it moves from a manual, staff-dependent task to a documented, standardized process that runs the same way every time regardless of who is in the role. Each workflow category maps to at least one federal obligation — the category determines which compliance review applies and which statute governs the documentation requirement.</p>
-        <div class="entry-example"><strong>Example:</strong> A SPED coordinator's IEP routing process is a workflow in the Documentation and Record-Keeping category, governed by IDEA 34 CFR §300.320. When built and standardized, it runs the same way whether the coordinator who designed it is in the building or not.</div>
+        <p class="entry-body">A repeatable administrative process in one of five categories: Documentation and Record-Keeping, Communication Routing, Compliance and Reporting, Scheduling and Coordination, or Data Entry and Transfer. When a workflow is documented and standardized, it moves from a staff-dependent task to a process that runs the same way every time regardless of who is in the role. Each workflow category maps to at least one federal obligation; the category determines which compliance review applies and which statute governs the documentation requirement.</p>
+        <div class="entry-example"><strong>Example:</strong> A SPED coordinator's IEP routing process is a workflow in the Documentation and Record-Keeping category, governed by IDEA 34 CFR &sect;300.320. When documented and standardized, it runs the same way whether the coordinator who designed it is in the building or not.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>Every workflow category has a governing statute. Building the workflow is how the school demonstrates it can meet that obligation consistently, not just when the right person is present.</p>
+          <p>Every workflow category has a governing statute. Documenting the workflow is how the school demonstrates it can meet that obligation consistently, not just when the right person is present.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Workflow &amp; Process</div>
           <div class="entry-title-block">
             <div class="entry-title">Workflow Automation (EWA)</div>
-            <div class="entry-citations">FERPA · IDEA · COPPA</div>
+            <div class="entry-citations">FERPA &middot; IDEA &middot; COPPA</div>
           </div>
         </div>
-        <p class="entry-body">The practice of identifying, measuring, and streamlining repeatable administrative and instructional processes in a school or district. In the EWA Build, automation is always deployed inside tools the school already operates (Google Workspace or Microsoft 365) and is never used to process student data through unapproved third parties. Every automation target is evaluated against FERPA's school official exception before implementation. Tools that touch student data must have a signed DPA.</p>
-        <div class="entry-example"><strong>Example:</strong> Automating attendance follow-up emails inside Google Workspace recovers 3 hrs/wk for the front office without routing student data through an unapproved tool.</div>
+        <p class="entry-body">The practice of identifying, measuring, and streamlining repeatable administrative processes in a school or district. Automation targets are evaluated against FERPA's school official exception before implementation. Tools that touch student data must have a signed DPA. Any automation that routes student data through a third party without a documented agreement is not an efficiency gain; it is a FERPA violation operating at speed.</p>
+        <div class="entry-example"><strong>Example:</strong> Automating attendance follow-up emails inside an approved platform recovers 3 hrs/wk for the front office without routing student data through an unapproved tool.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>FERPA 34 CFR §99.31(a)(1) — automated workflows that access student records must qualify under the school official exception.</p>
+          <p>FERPA 34 CFR &sect;99.31(a)(1): automated workflows that access student records must qualify under the school official exception.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Workflow &amp; Process</div>
           <div class="entry-title-block">
             <div class="entry-title">Workflow Fit Rating</div>
-            <div class="entry-citations">FERPA · COPPA · IDEA</div>
+            <div class="entry-citations">FERPA &middot; COPPA &middot; IDEA</div>
           </div>
         </div>
-        <p class="entry-body">A score from -2 to +3 measuring how well a tool integrates into existing school workflows. Accounts for time saved, time added (overhead), and workflow categories affected. In the federal compliance context, a tool cannot score above 0 if it lacks a signed DPA under FERPA, fails COPPA's opt-in consent requirement for student-facing features, or has not been reviewed against PPRA for profiling functions. Compliance status gates the rating. Efficiency gains do not override legal exposure.</p>
+        <p class="entry-body">A score from -2 to +3 measuring how well a tool integrates into existing school workflows. Accounts for time saved, time added (overhead), and workflow categories affected. A tool cannot score above 0 if it lacks a signed DPA under FERPA, fails COPPA's opt-in consent requirement for student-facing features, or has not been reviewed against PPRA for profiling functions. Compliance status gates the rating. Efficiency gains do not override legal exposure.</p>
         <div class="entry-example"><strong>Example:</strong> A tool saving 5 hrs/wk but missing a DPA has a Workflow Fit Rating of 0 regardless of feature quality. The compliance gate must clear before the score counts.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>No tool earns a positive rating without clearing FERPA §99.31, COPPA §6502, and PPRA §1232h review.</p>
+          <p>No tool earns a positive rating without clearing FERPA &sect;99.31, COPPA &sect;6502, and PPRA &sect;1232h review.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Workflow &amp; Process</div>
           <div class="entry-title-block">
             <div class="entry-title">Workflow Category</div>
-            <div class="entry-citations">FERPA · IDEA · Title Programs</div>
+            <div class="entry-citations">FERPA &middot; IDEA &middot; Title Programs</div>
           </div>
         </div>
         <p class="entry-body">One of five operational areas classifying tool and process impact: Documentation &amp; Record-Keeping, Communication Routing, Compliance &amp; Reporting, Scheduling &amp; Coordination, and Data Entry &amp; Transfer. Each category maps to specific federal obligations: Documentation ties to FERPA and IDEA; Communication to FERPA disclosure rules and IDEA parental notification; Compliance &amp; Reporting to IDEA monitoring and Title program accountability; Scheduling to IDEA procedural timelines; Data Entry to FERPA's school official exception and COPPA consent requirements.</p>
@@ -239,19 +258,20 @@
         </div>
       </div>
     </div>
- 
-    <div class="cal-section-label">Section 02 · Time &amp; Capacity</div>
- 
+
+    <!-- ═══════════════════════ SECTION 02 ═══════════════════════ -->
+    <div class="cal-section-label">Section 02 &middot; Time &amp; Capacity</div>
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Time &amp; Capacity</div>
           <div class="entry-title-block">
             <div class="entry-title">Adoption Lag</div>
-            <div class="entry-citations">Title II · IDEA § 300</div>
+            <div class="entry-citations">Title II &middot; IDEA &sect; 300</div>
           </div>
         </div>
-        <p class="entry-body">Gap between when a tool is approved and when it is consistently used as intended. Most tools: 4–12 weeks. During this period the district pays without receiving the workflow benefit. In the compliance context, Adoption Lag also means the documentation the tool was supposed to produce is still not being produced, so federal obligations that depend on that documentation are still going unmet even though the tool is technically on the approved list.</p>
+        <p class="entry-body">Gap between when a tool is approved and when it is consistently used as intended. Most tools: 4 to 12 weeks. During this period the district pays without receiving the workflow benefit. In the compliance context, Adoption Lag also means the documentation the tool was supposed to produce is still not being produced, so federal obligations that depend on that documentation are still going unmet even though the tool is technically on the approved list.</p>
         <div class="entry-example"><strong>Example:</strong> A school approves an IEP-tracking tool in September. Staff are not using it consistently until November. IEP timeline compliance gaps in October are attributable to Adoption Lag, not policy failure.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
@@ -259,109 +279,110 @@
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Time &amp; Capacity</div>
           <div class="entry-title-block">
             <div class="entry-title">Capacity Recovery</div>
-            <div class="entry-citations">Title I § 1111 · IDEA § 616</div>
+            <div class="entry-citations">Title I &sect; 1111 &middot; IDEA &sect; 616</div>
           </div>
         </div>
-        <p class="entry-body">Staff hours returned to higher-value work when a manual process is automated. The emphasis is where recovered time goes, not just that it was freed. For federal reporting purposes, Capacity Recovery is the measurable outcome that justifies technology expenditure under Title I and Title III program accountability requirements, and under IDEA §616 state monitoring, which requires evidence of program effectiveness, not just expenditure documentation.</p>
-        <div class="entry-example"><strong>Example:</strong> Automating parent notification routing recovers 2 hrs/wk for a counselor, redirected to student check-ins. Documented as a program outcome in Title I accountability reporting.</div>
+        <p class="entry-body">Staff hours returned to higher-value work when a compliance gap is closed, a manual process is streamlined, or a governance system replaces ad hoc documentation. The emphasis is where recovered time goes, not just that it was freed. For federal reporting purposes, Capacity Recovery is the measurable outcome that justifies governance investment under Title I and Title III program accountability requirements, and under IDEA &sect;616 state monitoring, which requires evidence of program effectiveness, not just expenditure documentation.</p>
+        <div class="entry-example"><strong>Example:</strong> Closing 4 documentation gaps and standardizing the vendor review process recovers 3 hrs/wk for the technology coordinator, redirected to active tool governance. Documented as a program outcome in Title I accountability reporting.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>Title I §1111 accountability requires documented outcomes. Capacity Recovery is the unit of measurement.</p>
+          <p>Title I &sect;1111 accountability requires documented outcomes. Capacity Recovery is the unit of measurement.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Time &amp; Capacity</div>
           <div class="entry-title-block">
             <div class="entry-title">Setup Tax</div>
-            <div class="entry-citations">FERPA § 99.31 · COPPA § 6502</div>
+            <div class="entry-citations">FERPA &sect; 99.31 &middot; COPPA &sect; 6502</div>
           </div>
         </div>
-        <p class="entry-body">The total time cost of adopting a new tool that vendors exclude from their marketing, both upfront and ongoing. Includes configuration, SSO provisioning, staff training, and the compliance documentation the district must create independently: the signed DPA (FERPA §99.31), the COPPA consent verification process, the PPRA review if the tool generates student profiles, and the board approval documentation if required by district policy. High Setup Tax tools are often "free" tools whose true cost is entirely compliance labor.</p>
+        <p class="entry-body">The total time cost of adopting a new tool that vendors exclude from their marketing, both upfront and ongoing. Includes configuration, SSO provisioning, staff training, and the compliance documentation the district must create independently: the signed DPA (FERPA &sect;99.31), the COPPA consent verification process, the PPRA review if the tool generates student profiles, and the board approval documentation if required by district policy. High Setup Tax tools are often "free" tools whose true cost is entirely compliance labor.</p>
         <div class="entry-example"><strong>Example:</strong> A free-tier AI writing tool requires: DPA negotiation (4 hrs), COPPA consent review (2 hrs), staff training (3 hrs), admin setup (1 hr) = 10 hrs of Setup Tax before the first use.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>Every new tool requires a FERPA §99.31 DPA before student data is accessed. That process is part of Setup Tax whether vendors acknowledge it or not.</p>
+          <p>Every new tool requires a FERPA &sect;99.31 DPA before student data is accessed. That process is part of Setup Tax whether vendors acknowledge it or not.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Time &amp; Capacity</div>
           <div class="entry-title-block">
             <div class="entry-title">Staff Time Impact</div>
-            <div class="entry-citations">IDEA § 300 · Title Programs</div>
+            <div class="entry-citations">IDEA &sect; 300 &middot; Title Programs</div>
           </div>
         </div>
-        <p class="entry-body">Net change in weekly hours for a specific role when a tool or process change is introduced. Hours saved minus hours added (setup, training, maintenance, compliance docs). Expressed as a range with a Confidence Rating (H/M/L). For federal program reporting, Staff Time Impact for roles discharging federal obligations (SPED coordinators, Title I teachers, counselors) is the evidence base for demonstrating that technology investments improve program delivery, not just operational efficiency.</p>
-        <div class="entry-example"><strong>Example:</strong> An IEP workflow tool saves a SPED coordinator approximately 5–8 hrs/wk net of overhead. Confidence: M. Documented as evidence of IDEA program improvement in state monitoring.</div>
+        <p class="entry-body">Net change in weekly hours for a specific role when a tool or process change is introduced. Hours saved minus hours added (setup, training, maintenance, compliance documentation). Expressed as a range with a Confidence Rating (H/M/L). For federal program reporting, Staff Time Impact for roles discharging federal obligations (SPED coordinators, Title I teachers, counselors) is the evidence base for demonstrating that governance investments improve program delivery, not just operational efficiency.</p>
+        <div class="entry-example"><strong>Example:</strong> A standardized vendor review process saves a technology coordinator approximately 3 to 5 hrs/wk net of overhead. Confidence: M. Documented as evidence of governance program improvement in state monitoring.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>IDEA §616 state monitoring and Title program accountability require demonstrated impact on federally-mandated roles.</p>
+          <p>IDEA &sect;616 state monitoring and Title program accountability require demonstrated impact on federally-mandated roles.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Time &amp; Capacity</div>
           <div class="entry-title-block">
             <div class="entry-title">Time-to-Compliance</div>
-            <div class="entry-citations">FERPA · COPPA 2025 · IDEA</div>
+            <div class="entry-citations">FERPA &middot; COPPA 2025 &middot; IDEA</div>
           </div>
         </div>
         <p class="entry-body">Hours or days required to bring a new tool into documented compliance with district, state, and federal requirements. High Time-to-Compliance is a large hidden cost regardless of sticker price. Under COPPA's 2025 amendments (effective June 23, 2025; full compliance required April 22, 2026), any student-facing tool requires documented opt-in parental consent before use, a process that takes time regardless of how good the tool is. A tool adopted before its Time-to-Compliance is complete is a tool in active federal violation during the gap period.</p>
         <div class="entry-example"><strong>Example:</strong> A tool approved in January but not COPPA-compliant until March has a 60-day gap of potential COPPA exposure, at up to $51,744 per affected child.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>COPPA §6502(b)(1) — no collection from children under 13 without verifiable parental consent. The clock starts at first student use.</p>
+          <p>COPPA &sect;6502(b)(1): no collection from children under 13 without verifiable parental consent. The clock starts at first student use.</p>
         </div>
       </div>
     </div>
- 
-    <div class="cal-section-label">Section 03 · Tool Governance</div>
- 
+
+    <!-- ═══════════════════════ SECTION 03 ═══════════════════════ -->
+    <div class="cal-section-label">Section 03 &middot; Tool Governance</div>
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Tool Governance</div>
           <div class="entry-title-block">
             <div class="entry-title">Shadow IT</div>
-            <div class="entry-citations">FERPA § 99.31 · COPPA § 6502</div>
+            <div class="entry-citations">FERPA &sect; 99.31 &middot; COPPA &sect; 6502</div>
           </div>
         </div>
-        <p class="entry-body">Tools adopted by staff without district knowledge, approval, or vetting. Common in K–12 because teachers independently sign up for free-tier AI and edtech tools. Under federal law, each Shadow IT tool is a potential unauthorized disclosure of student education records under FERPA (34 CFR §99.31 — no signed DPA means the vendor does not qualify as a school official). If students interact with the tool directly, each use is a potential COPPA violation with penalties up to $51,744 per affected child. "I didn't know" is not a federal defense.</p>
+        <p class="entry-body">Tools adopted by staff without district knowledge, approval, or vetting. Common in K-12 because teachers independently sign up for free-tier AI and edtech tools. Under federal law, each Shadow IT tool is a potential unauthorized disclosure of student education records under FERPA (34 CFR &sect;99.31: no signed DPA means the vendor does not qualify as a school official). If students interact with the tool directly, each use is a potential COPPA violation with penalties up to $51,744 per affected child. "I didn't know" is not a federal defense.</p>
         <div class="entry-example"><strong>Example:</strong> A teacher signs up for a free AI grading tool using student work samples. No DPA. No COPPA review. Every student record processed = one FERPA exposure.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>FERPA 34 CFR §99.31(a)(1) — third-party access to student data requires a written agreement before any data is shared. Shadow IT has none.</p>
+          <p>FERPA 34 CFR &sect;99.31(a)(1): third-party access to student data requires a written agreement before any data is shared. Shadow IT has none.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Tool Governance</div>
           <div class="entry-title-block">
             <div class="entry-title">Tool Lifecycle</div>
-            <div class="entry-citations">FERPA · COPPA · PPRA</div>
+            <div class="entry-citations">FERPA &middot; COPPA &middot; PPRA</div>
           </div>
         </div>
-        <p class="entry-body">The full span of a tool's presence in a school: discovery, vetting, approval, deployment, adoption, maintenance, review, and retirement or renewal. Most districts manage only the middle stages — they approve and deploy, but rarely document the vetting that preceded approval or the review that should precede renewal. Under FERPA, COPPA, and PPRA, compliance documentation must exist at every stage, not just at the point of adoption. A tool that was compliant at approval may no longer be compliant after a vendor updates its data practices.</p>
+        <p class="entry-body">The full span of a tool's presence in a school: discovery, vetting, approval, deployment, adoption, maintenance, review, and retirement or renewal. Most districts manage only the middle stages; they approve and deploy, but rarely document the vetting that preceded approval or the review that should precede renewal. Under FERPA, COPPA, and PPRA, compliance documentation must exist at every stage, not just at the point of adoption. A tool that was compliant at approval may no longer be compliant after a vendor updates its data practices or switches the foundation model powering the product.</p>
         <div class="entry-example"><strong>Example:</strong> A tool approved in 2022 under the old COPPA opt-out framework requires re-review under the 2025 opt-in amendments before April 22, 2026.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
@@ -369,197 +390,199 @@
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Tool Governance</div>
           <div class="entry-title-block">
             <div class="entry-title">Tool Sprawl</div>
-            <div class="entry-citations">FERPA § 99.31 · COPPA § 6502</div>
+            <div class="entry-citations">FERPA &sect; 99.31 &middot; COPPA &sect; 6502</div>
           </div>
         </div>
-        <p class="entry-body">The accumulation of overlapping, redundant, or unvetted technology tools across a district. Occurs when staff adopt tools independently without centralized review. Under federal law, Tool Sprawl is not merely a governance inconvenience — it is the accumulation of potential unauthorized disclosures under FERPA and potential COPPA violations for every student-facing tool without a verified consent process. The EWA Build treats Tool Sprawl reduction as a federal compliance obligation, not a preference.</p>
-        <div class="entry-example"><strong>Example:</strong> A district with 45 tools in active use and 12 on the approved list has 33 tools operating without DPAs — 33 potential FERPA violations.</div>
+        <p class="entry-body">The accumulation of overlapping, redundant, or unvetted technology tools across a district. Occurs when staff adopt tools independently without centralized review. Under federal law, Tool Sprawl is not merely a governance inconvenience; it is the accumulation of potential unauthorized disclosures under FERPA and potential COPPA violations for every student-facing tool without a verified consent process. Tool Sprawl reduction is a federal compliance obligation, not a preference.</p>
+        <div class="entry-example"><strong>Example:</strong> A district with 45 tools in active use and 12 on the approved list has 33 tools operating without DPAs: 33 potential FERPA violations.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>Every tool accessing student records without a DPA is a potential violation of FERPA 34 CFR §99.31(a)(1).</p>
+          <p>Every tool accessing student records without a DPA is a potential violation of FERPA 34 CFR &sect;99.31(a)(1).</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Tool Governance</div>
           <div class="entry-title-block">
             <div class="entry-title">Tool Sprawl Index</div>
-            <div class="entry-citations">FERPA § 99.31 · COPPA § 6502</div>
+            <div class="entry-citations">FERPA &sect; 99.31 &middot; COPPA &sect; 6502</div>
           </div>
         </div>
-        <p class="entry-body">Count of all tools in active use compared against the district's official approved list. High index = governance gaps. Measured during an EWA Diagnostic. In the federal compliance context, the Tool Sprawl Index is a direct measure of unauthorized FERPA disclosure risk: every tool above the approved list that accesses student data without a DPA is a potential §99.31 violation. A TSI above 2.0x indicates significant unmanaged federal exposure.</p>
+        <p class="entry-body">Count of all tools in active use compared against the district's official approved list. High index = governance gaps. In the federal compliance context, the Tool Sprawl Index is a direct measure of unauthorized FERPA disclosure risk: every tool above the approved list that accesses student data without a DPA is a potential &sect;99.31 violation. A TSI above 2.0x indicates significant unmanaged federal exposure.</p>
         <div class="entry-example"><strong>Example:</strong> 45 tools in use, 12 on approved list = TSI of 3.75x. 33 tools operating without FERPA-required DPAs.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>FERPA 34 CFR §99.31(a)(1) — the school official exception requires a written agreement. TSI measures how many tools lack one.</p>
+          <p>FERPA 34 CFR &sect;99.31(a)(1): the school official exception requires a written agreement. TSI measures how many tools lack one.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Tool Governance</div>
           <div class="entry-title-block">
             <div class="entry-title">Vetting Debt</div>
-            <div class="entry-citations">FERPA · COPPA 2025 · PPRA</div>
+            <div class="entry-citations">FERPA &middot; COPPA 2025 &middot; PPRA</div>
           </div>
         </div>
         <p class="entry-body">The backlog of tools currently in use that have not undergone formal privacy, security, or workflow review. Every unvetted tool is a federal risk that accumulates. Vetting Debt grows faster than most districts can retire it, particularly with the introduction of AI tools, which may trigger FERPA (student data), COPPA (student-facing features for under-13 users), and PPRA (tools that generate behavioral or psychological profiles of students). The April 22, 2026 COPPA compliance deadline means existing Vetting Debt for student-facing AI tools is not deferred. It is overdue.</p>
         <div class="entry-example"><strong>Example:</strong> A district with 20 unvetted tools has 20 tools that may be generating FERPA violations, COPPA exposure, and PPRA notification gaps simultaneously.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>COPPA April 22, 2026 deadline — unvetted student-facing tools are currently in potential violation of the 2025 opt-in consent amendments.</p>
+          <p>COPPA April 22, 2026 deadline: unvetted student-facing tools are currently in potential violation of the 2025 opt-in consent amendments.</p>
         </div>
       </div>
     </div>
- 
-    <div class="cal-section-label">Section 04 · Compliance &amp; Risk</div>
- 
+
+    <!-- ═══════════════════════ SECTION 04 ═══════════════════════ -->
+    <div class="cal-section-label">Section 04 &middot; Compliance &amp; Risk</div>
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Compliance &amp; Risk</div>
           <div class="entry-title-block">
             <div class="entry-title">AI Governance Posture</div>
-            <div class="entry-citations">COPPA 2025 · FERPA · PPRA</div>
+            <div class="entry-citations">COPPA 2025 &middot; FERPA &middot; PPRA</div>
           </div>
         </div>
-        <p class="entry-body">The overall state of a district's policies, documentation, and procedures for managing AI tools. Ranges from "no formal governance" to "documented, reviewed, and actively maintained." Most districts are in the first category. Under the 2025 COPPA amendments, a district with no formal AI governance is a district without documented opt-in consent processes for student-facing AI, a direct federal exposure. Under PPRA (20 U.S.C. §1232h), AI tools that generate behavioral or psychological profiles of students require parental notification. Under FERPA, every AI tool that processes student records requires a DPA. AI Governance Posture is the measure of whether any of this is in place.</p>
+        <p class="entry-body">The overall state of a district's policies, documentation, and procedures for managing AI tools. Ranges from "no formal governance" to "documented, reviewed, and actively maintained." Most districts are in the first category. Under the 2025 COPPA amendments, a district with no formal AI governance is a district without documented opt-in consent processes for student-facing AI: a direct federal exposure. Under PPRA (20 U.S.C. &sect;1232h), AI tools that generate behavioral or psychological profiles of students require parental notification. Under FERPA, every AI tool that processes student records requires a DPA. AI Governance Posture is the measure of whether any of this is in place.</p>
         <div class="entry-example"><strong>Example:</strong> A school where teachers use five AI tools independently, none with DPAs, none with consent documentation = AI Governance Posture: No formal governance. Active federal exposure.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>COPPA §6502(b) — opt-in consent required by April 22, 2026 for every AI tool students interact with. PPRA §1232h — profiling tools require parental notification regardless of COPPA status.</p>
+          <p>COPPA &sect;6502(b): opt-in consent required by April 22, 2026 for every AI tool students interact with. PPRA &sect;1232h: profiling tools require parental notification regardless of COPPA status.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Compliance &amp; Risk</div>
           <div class="entry-title-block">
             <div class="entry-title">Child Find Readiness</div>
-            <div class="entry-citations">IDEA § 300.111 · 34 CFR § 300.111</div>
+            <div class="entry-citations">IDEA &sect; 300.111 &middot; 34 CFR &sect; 300.111</div>
           </div>
         </div>
-        <p class="entry-body">The documented capacity of a school to fulfill IDEA's Child Find obligation — the requirement to actively identify, locate, and evaluate all children who may have a disability and be eligible for special education services. Child Find is not passive. IDEA 34 CFR §300.111 requires proactive outreach. Child Find Readiness measures whether the workflows, documentation chains, and referral-to-evaluation timelines that support this obligation are documented, staffed, and functioning, or exist only in someone's head.</p>
+        <p class="entry-body">The documented capacity of a school to fulfill IDEA's Child Find obligation: the requirement to actively identify, locate, and evaluate all children who may have a disability and be eligible for special education services. Child Find is not passive. IDEA 34 CFR &sect;300.111 requires proactive outreach. Child Find Readiness measures whether the workflows, documentation chains, and referral-to-evaluation timelines that support this obligation are documented, staffed, and functioning, or exist only in someone's head.</p>
         <div class="entry-example"><strong>Example:</strong> A school with no documented referral intake workflow, no timeline tracking, and no handoff procedure when the SPED coordinator is absent has low Child Find Readiness and active IDEA exposure.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>IDEA 34 CFR §300.111 — Child Find is a mandatory federal obligation. Failure to identify eligible students is an IDEA violation regardless of intent.</p>
+          <p>IDEA 34 CFR &sect;300.111: Child Find is a mandatory federal obligation. Failure to identify eligible students is an IDEA violation regardless of intent.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Compliance &amp; Risk</div>
           <div class="entry-title-block">
             <div class="entry-title">Compliance Surface Area</div>
-            <div class="entry-citations">FERPA · IDEA · COPPA · PPRA</div>
+            <div class="entry-citations">FERPA &middot; IDEA &middot; COPPA &middot; PPRA</div>
           </div>
         </div>
         <p class="entry-body">The total scope of federal and regulatory exposure across all technology tools, data systems, and AI-enabled processes. Expands with every tool adopted without corresponding documentation. Larger surface area = more audit risk across more statutes simultaneously. Under FERPA, each undocumented vendor relationship is one unit of surface area. Under COPPA, each student-facing tool without consent documentation is another. Under PPRA, each profiling or survey tool without parental notification is another. Under IDEA, each gap in IEP or Child Find documentation is another. Compliance Surface Area grows silently, until it does not.</p>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>Four statutes — FERPA, IDEA, COPPA, PPRA — can generate simultaneous exposure from a single undocumented tool adoption.</p>
+          <p>Four statutes (FERPA, IDEA, COPPA, PPRA) can generate simultaneous exposure from a single undocumented tool adoption.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Compliance &amp; Risk</div>
           <div class="entry-title-block">
             <div class="entry-title">Documentation Gap</div>
-            <div class="entry-citations">FERPA · IDEA · COPPA · PPRA</div>
+            <div class="entry-citations">FERPA &middot; IDEA &middot; COPPA &middot; PPRA</div>
           </div>
         </div>
-        <p class="entry-body">A specific instance where a federally-required document does not exist, is not current, or cannot be located within a reasonable timeframe. Each gap has a governing statute. Missing DPA: FERPA 34 CFR §99.31 — unauthorized disclosure of student records. Missing AI Output Review Policy: COPPA §6502 — undocumented consent process. Missing Prior Written Notice template: IDEA 34 CFR §300.503 — denial of procedural safeguards. Missing incident response plan: FERPA breach notification + COPPA §6502. Missing Child Find procedure: IDEA 34 CFR §300.111 — active identification failure. Each gap is an audit finding waiting to happen. The EWA Build names the statute, not just the document.</p>
-        <div class="entry-example"><strong>Example:</strong> No signed DPA on file for an AI tool processing student essays = one Documentation Gap under FERPA 34 CFR §99.31.</div>
+        <p class="entry-body">A specific instance where a federally-required document does not exist, is not current, or cannot be located within a reasonable timeframe. Each gap has a governing statute. Missing DPA: FERPA 34 CFR &sect;99.31 (unauthorized disclosure of student records). Missing AI Output Review Policy: COPPA &sect;6502 (undocumented consent process). Missing Prior Written Notice template: IDEA 34 CFR &sect;300.503 (denial of procedural safeguards). Missing incident response plan: FERPA breach notification + COPPA &sect;6502. Missing Child Find procedure: IDEA 34 CFR &sect;300.111 (active identification failure). Each gap is an audit finding waiting to happen. The compliance forensics process names the statute, not just the document.</p>
+        <div class="entry-example"><strong>Example:</strong> No signed DPA on file for an AI tool processing student essays = one Documentation Gap under FERPA 34 CFR &sect;99.31.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
           <p>Every documentation gap has a corresponding federal violation if it surfaces during an audit or parent request.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Compliance &amp; Risk</div>
           <div class="entry-title-block">
             <div class="entry-title">Incident Response Readiness</div>
-            <div class="entry-citations">FERPA · COPPA 2025 · PPRA</div>
+            <div class="entry-citations">FERPA &middot; COPPA 2025 &middot; PPRA</div>
           </div>
         </div>
         <p class="entry-body">The documented capacity to respond to technology or AI incidents involving students. Includes notification sequences, communication review chains, incident log templates, and coordination procedures. Assessed before an incident, not during one. Under FERPA, schools must have procedures for responding to unauthorized disclosures. Under the 2025 COPPA amendments, breach response procedures are now part of the formal security program required of districts handling student data. A school that discovers a breach during an incident and tries to build its response procedures at the same time has low Incident Response Readiness and high federal exposure.</p>
         <div class="entry-example"><strong>Example:</strong> The December 2024 PowerSchool breach affected 62 million student records. Districts without documented incident response plans had no framework for meeting their FERPA and COPPA notification obligations.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>COPPA 2025 §6502 — formal written security program required. FERPA — unauthorized disclosure procedures must exist before a breach, not after.</p>
+          <p>COPPA 2025 &sect;6502: formal written security program required. FERPA: unauthorized disclosure procedures must exist before a breach, not after.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Compliance &amp; Risk</div>
           <div class="entry-title-block">
             <div class="entry-title">Output Review Policy</div>
-            <div class="entry-citations">COPPA 2025 · FERPA · PPRA</div>
+            <div class="entry-citations">COPPA 2025 &middot; FERPA &middot; PPRA</div>
           </div>
         </div>
         <p class="entry-body">A written school policy requiring staff to review AI-generated content (text, images, assessments, summaries) before use with or about students. Under COPPA's 2025 amendments, districts must document how student data is used in AI outputs and how that use has been consented to. Under PPRA, AI-generated profiles or analyses of individual students trigger parental notification requirements even when generated by an approved tool. An Output Review Policy operationalizes these obligations at the building level, where the actual decisions are made.</p>
         <div class="entry-example"><strong>Example:</strong> A teacher uses an AI tool to summarize student reading performance. Without an Output Review Policy, there is no documented process for verifying the summary does not constitute an unauthorized FERPA disclosure or a PPRA-triggering student profile.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>PPRA §1232h — surveys and analyses revealing personal student information require parental consent. AI-generated profiles can trigger this. COPPA §6502 — documented consent process required for any student data use.</p>
+          <p>PPRA &sect;1232h: surveys and analyses revealing personal student information require parental consent. AI-generated profiles can trigger this. COPPA &sect;6502: documented consent process required for any student data use.</p>
         </div>
       </div>
     </div>
- 
-    <div class="cal-section-label">Section 05 · Measurement &amp; Reporting</div>
- 
+
+    <!-- ═══════════════════════ SECTION 05 ═══════════════════════ -->
+    <div class="cal-section-label">Section 05 &middot; Measurement &amp; Reporting</div>
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Measurement &amp; Reporting</div>
           <div class="entry-title-block">
             <div class="entry-title">Baseline Measurement</div>
-            <div class="entry-citations">Title I § 1111 · IDEA § 616</div>
+            <div class="entry-citations">Title I &sect; 1111 &middot; IDEA &sect; 616</div>
           </div>
         </div>
-        <p class="entry-body">Documented time and process data for how a task is currently performed before any change is introduced. Without a baseline, there is no way to measure whether an intervention improved anything, and no way to meet federal reporting requirements that demand demonstrated outcomes, not just documented spending. Under Title I §1111 accountability requirements and IDEA §616 state monitoring, technology investments must be tied to measurable program outcomes. Baseline Measurement is what makes that connection possible.</p>
-        <div class="entry-example"><strong>Example:</strong> Before automating IEP meeting notifications, document that the SPED coordinator currently spends 4 hrs/wk on manual notification. That number becomes the federal program baseline.</div>
+        <p class="entry-body">Documented time and process data for how a task is currently performed before any change is introduced. Without a baseline, there is no way to measure whether an intervention improved anything, and no way to meet federal reporting requirements that demand demonstrated outcomes, not just documented spending. Under Title I &sect;1111 accountability requirements and IDEA &sect;616 state monitoring, governance investments must be tied to measurable program outcomes. Baseline Measurement is what makes that connection possible.</p>
+        <div class="entry-example"><strong>Example:</strong> Before standardizing vendor review, document that the technology coordinator currently spends 8 hrs/wk on ad hoc tool evaluation with no documented output. That number becomes the program baseline.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>Title I §1111 — accountability requires demonstrated outcomes. IDEA §616 — state monitoring requires evidence of program improvement. Neither is possible without a documented baseline.</p>
+          <p>Title I &sect;1111: accountability requires demonstrated outcomes. IDEA &sect;616: state monitoring requires evidence of program improvement. Neither is possible without a documented baseline.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Measurement &amp; Reporting</div>
           <div class="entry-title-block">
             <div class="entry-title">Confidence Rating (H/M/L)</div>
-            <div class="entry-citations">Title I · IDEA · Internal</div>
+            <div class="entry-citations">Title I &middot; IDEA &middot; Internal</div>
           </div>
         </div>
         <p class="entry-body">Transparency indicator on every time-impact estimate. H = observed or verified data from this school. M = benchmarked against comparable tools or schools. L = feature-based estimation only. When presenting Capacity Recovery or Staff Time Impact figures in federal program reports or board documentation, the Confidence Rating signals how much evidentiary weight the number carries. An H-rated finding is defensible in a Title I audit. An L-rated finding is a projection that needs to be labeled as such.</p>
@@ -569,17 +592,17 @@
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Measurement &amp; Reporting</div>
           <div class="entry-title-block">
-            <div class="entry-title">EWA Diagnostic</div>
+            <div class="entry-title">Compliance Diagnostic</div>
             <div class="entry-citations">All governing statutes</div>
           </div>
         </div>
-        <p class="entry-body">A structured federal compliance and workflow assessment of a school's operational efficiency, tool governance, and documentation completeness. Produces a scored report with: Tool Sprawl Index (FERPA §99.31 exposure), Documentation Gap count by governing statute, AI Governance Posture score (COPPA §6502 compliance), Child Find Readiness (IDEA §300.111), FERPA 45-day access readiness, and a prioritized action plan. Remote or on-site options available. The Language Firm's core engagement.</p>
+        <p class="entry-body">A structured federal compliance and governance assessment of a school's documentation completeness, tool governance posture, and vendor accountability coverage. Produces a scored report with: Tool Sprawl Index (FERPA &sect;99.31 exposure), Documentation Gap count by governing statute, AI Governance Posture score (COPPA &sect;6502 compliance), Child Find Readiness (IDEA &sect;300.111), FERPA 45-day access readiness, vendor document ecosystem findings, and a prioritized action plan. The Language Firm's core engagement: the forensic linguistic analysis that identifies where the district's document language fails before an auditor does.</p>
         <div class="entry-example"><strong>Example:</strong> A Diagnostic finding of 9 Documentation Gaps might include 3 FERPA gaps (missing DPAs), 2 IDEA gaps (missing PWN templates), 2 COPPA gaps (no consent documentation for AI tools), and 2 PPRA gaps (profiling tools without parental notice). Each one is named and cited.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
@@ -587,105 +610,258 @@
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry">
       <div class="entry-inner">
         <div class="entry-top">
           <div class="entry-badge">Measurement &amp; Reporting</div>
           <div class="entry-title-block">
             <div class="entry-title">Learning ROI</div>
-            <div class="entry-citations">Title I § 1111 · Title III § 3121 · IDEA § 616</div>
+            <div class="entry-citations">Title I &sect; 1111 &middot; Title III &sect; 3121 &middot; IDEA &sect; 616</div>
           </div>
         </div>
-        <p class="entry-body">Measurable return on a technology investment expressed in staff hours recovered, compliance gaps closed, or process steps eliminated, not vendor engagement metrics. The question is not "are teachers using it?" but "what changed in the workflow, and can we document that change in the language federal program reporting requires?" Under Title I §1111, Title III §3121, and IDEA §616, technology expenditure must be connected to program outcomes. Learning ROI is the unit of that connection.</p>
-        <div class="entry-example"><strong>Example:</strong> An IEP workflow tool closed 4 Documentation Gaps under IDEA and recovered 6 hrs/wk for the SPED coordinator. Board presentation: 4 federal compliance gaps resolved, 6 hrs/wk returned to student-facing services.</div>
+        <p class="entry-body">Measurable return on a governance investment expressed in compliance gaps closed, documentation gaps resolved, audit exposure reduced, or staff hours recovered: not vendor engagement metrics. The question is not "are teachers using it?" but "what changed in the district's compliance posture, and can we document that change in the language federal program reporting requires?" Under Title I &sect;1111, Title III &sect;3121, and IDEA &sect;616, expenditure must be connected to program outcomes. Learning ROI is the unit of that connection.</p>
+        <div class="entry-example"><strong>Example:</strong> A governance investment closed 4 Documentation Gaps under IDEA and recovered 6 hrs/wk for the SPED coordinator. Board presentation: 4 federal compliance gaps resolved, 6 hrs/wk returned to student-facing services.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>Title I §1111, Title III §3121, IDEA §616 — all require demonstrated program outcomes, not just expenditure records.</p>
+          <p>Title I &sect;1111, Title III &sect;3121, IDEA &sect;616: all require demonstrated program outcomes, not just expenditure records.</p>
         </div>
       </div>
     </div>
- 
-    <div class="cal-section-label">New in Version 2 · Federal Compliance Terms</div>
- 
+
+    <!-- ═══════════════════════ SECTION 06 (v2 terms) ═══════════════════════ -->
+    <div class="cal-section-label">Version 2 Additions &middot; Federal Compliance Terms</div>
+
     <div class="cal-entry new-term">
       <div class="entry-inner">
         <div class="entry-top">
-          <div class="entry-badge new">New · Version 2</div>
+          <div class="entry-badge new">Added in Version 2</div>
           <div class="entry-title-block">
             <div class="entry-title">FAPE Documentation Chain</div>
-            <div class="entry-citations">IDEA § 300.320 · § 300.503 · § 300.111</div>
+            <div class="entry-citations">IDEA &sect; 300.320 &middot; &sect; 300.503 &middot; &sect; 300.111</div>
           </div>
         </div>
-        <p class="entry-body">The complete sequence of documents required to demonstrate that a school is providing a Free Appropriate Public Education (FAPE) for a specific student with a disability, from Child Find referral through IEP development, annual review, Prior Written Notice, progress reporting, and placement documentation. The FAPE Documentation Chain must be complete, current, and locatable. A broken or missing link at any stage is an IDEA violation, regardless of what services were actually provided. The EWA Build maps and automates this chain as a federal obligation, not an administrative preference.</p>
-        <div class="entry-example"><strong>Example:</strong> A SPED coordinator who has been providing services correctly but has no documented PWN for a placement change has a broken FAPE Documentation Chain and an active IDEA §300.503 violation.</div>
+        <p class="entry-body">The complete sequence of documents required to demonstrate that a school is providing a Free Appropriate Public Education (FAPE) for a specific student with a disability, from Child Find referral through IEP development, annual review, Prior Written Notice, progress reporting, and placement documentation. The FAPE Documentation Chain must be complete, current, and locatable. A broken or missing link at any stage is an IDEA violation, regardless of what services were actually provided.</p>
+        <div class="entry-example"><strong>Example:</strong> A SPED coordinator who has been providing services correctly but has no documented PWN for a placement change has a broken FAPE Documentation Chain and an active IDEA &sect;300.503 violation.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>IDEA 34 CFR §300.320 (IEP content), §300.503 (PWN), §300.111 (Child Find), §300.322 (parent participation). All four must be documented to demonstrate FAPE.</p>
+          <p>IDEA 34 CFR &sect;300.320 (IEP content), &sect;300.503 (PWN), &sect;300.111 (Child Find), &sect;300.322 (parent participation). All four must be documented to demonstrate FAPE.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry new-term">
       <div class="entry-inner">
         <div class="entry-top">
-          <div class="entry-badge new">New · Version 2</div>
+          <div class="entry-badge new">Added in Version 2</div>
           <div class="entry-title-block">
             <div class="entry-title">DPA Registry</div>
-            <div class="entry-citations">FERPA § 99.31(a)(1) · COPPA § 6502</div>
+            <div class="entry-citations">FERPA &sect; 99.31(a)(1) &middot; COPPA &sect; 6502</div>
           </div>
         </div>
-        <p class="entry-body">A maintained inventory of all Data Privacy Agreements between the school or district and every third-party vendor that accesses student education records. Under FERPA 34 CFR §99.31(a)(1), vendors only qualify as "school officials" with legitimate educational interest if they operate under a written agreement with specific data-use restrictions. A DPA Registry makes that compliance visible, auditable, and maintainable, and flags when agreements lapse or need updating as vendor data practices change. Under the 2025 COPPA amendments, the Registry should also document consent verification status for every student-facing tool.</p>
+        <p class="entry-body">A maintained inventory of all Data Privacy Agreements between the school or district and every third-party vendor that accesses student education records. Under FERPA 34 CFR &sect;99.31(a)(1), vendors only qualify as "school officials" with legitimate educational interest if they operate under a written agreement with specific data-use restrictions. A DPA Registry makes that compliance visible, auditable, and maintainable, and flags when agreements lapse or need updating as vendor data practices change. Under the 2025 COPPA amendments, the Registry should also document consent verification status for every student-facing tool.</p>
         <div class="entry-example"><strong>Example:</strong> A DPA Registry with 45 tools listed, 12 with current signed DPAs, and 33 flagged as missing = immediate FERPA remediation priority.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>FERPA 34 CFR §99.31(a)(1) — the DPA is not optional. It is the legal mechanism that authorizes third-party access to student records.</p>
+          <p>FERPA 34 CFR &sect;99.31(a)(1): the DPA is not optional. It is the legal mechanism that authorizes third-party access to student records.</p>
         </div>
       </div>
     </div>
- 
+
     <div class="cal-entry new-term">
       <div class="entry-inner">
         <div class="entry-top">
-          <div class="entry-badge new">New · Version 2</div>
+          <div class="entry-badge new">Added in Version 2</div>
           <div class="entry-title-block">
             <div class="entry-title">COPPA Consent Status</div>
-            <div class="entry-citations">COPPA 2025 · 15 U.S.C. § 6502 · FTC Rule</div>
+            <div class="entry-citations">COPPA 2025 &middot; 15 U.S.C. &sect; 6502 &middot; FTC Rule</div>
           </div>
         </div>
         <p class="entry-body">The documented state of a school's verifiable parental consent processes for every student-facing tool that may collect personal data from children under 13. Under the January 2025 FTC amendments to COPPA, the consent framework shifted from opt-out to opt-in, meaning explicit, documented parental consent is required before data collection begins, not after. Full compliance is required by April 22, 2026. COPPA Consent Status is tracked per tool: Compliant, In Progress, Not Started, or Not Applicable (tool does not collect data from under-13 users). Any tool with In Progress or Not Started status after April 22, 2026 carries penalties up to $51,744 per affected child.</p>
         <div class="entry-example"><strong>Example:</strong> A school with 8 student-facing AI tools, 2 with documented opt-in consent processes, 6 without = COPPA Consent Status: Critical. The April 22, 2026 deadline is a hard legal date.</div>
         <div class="entry-anchor">
           <div class="entry-anchor-label">Federal Anchor</div>
-          <p>COPPA 15 U.S.C. §6502(b) — opt-in parental consent required. FTC enforcement: penalties up to $51,744 per affected child per violation.</p>
+          <p>COPPA 15 U.S.C. &sect;6502(b): opt-in parental consent required. FTC enforcement: penalties up to $51,744 per affected child per violation.</p>
         </div>
       </div>
     </div>
- 
+
+    <!-- ═══════════════════════ SECTION 07 (v3 NEW) ═══════════════════════ -->
+    <div class="cal-section-label">New in Version 3 &middot; Vendor Accountability &amp; Supply Chain</div>
+
+    <div class="cal-entry v3-term">
+      <div class="entry-inner">
+        <div class="entry-top">
+          <div class="entry-badge v3">New &middot; Version 3</div>
+          <div class="entry-title-block">
+            <div class="entry-title">Upstream Vendor Risk</div>
+            <div class="entry-citations">NIST AI RMF &middot; MIT AI Risk Repository &middot; FERPA &middot; COPPA</div>
+          </div>
+        </div>
+        <p class="entry-body">The exposure created when a vendor's own dependencies (foundation models, open-source libraries, cloud infrastructure providers) are compromised without the vendor's knowledge or the district's notification. Most Data Privacy Agreements address what the vendor does with student data. They do not address what happens when something the vendor is built on gets compromised. The March 2026 LiteLLM supply chain attack demonstrated the mechanism: a Python library with 95 million monthly downloads was backdoored with credential-stealing malware and automatically pulled into vendor environments that did not pin to verified versions. If an edtech vendor your school depends on was running that library, student data access credentials may have been exposed. The DPA did not cover it.</p>
+        <div class="entry-example"><strong>Example:</strong> A vendor's AI-powered reading tool uses a third-party foundation model for inference. That model provider suffers a data breach. The vendor's DPA covers the vendor's own systems. It says nothing about the model provider's breach. The district is exposed and was never notified.</div>
+        <div class="entry-anchor">
+          <div class="entry-anchor-label">Framework Anchor</div>
+          <p>NIST AI RMF MAP 1.1, MAP 1.5: identify and document third-party dependencies. MIT AI Risk Repository Domain 2.1: AI system security vulnerabilities including supply chain compromise. FERPA &sect;99.31: the DPA must cover the actual data path, not just the vendor's front door.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-entry v3-term">
+      <div class="entry-inner">
+        <div class="entry-top">
+          <div class="entry-badge v3">New &middot; Version 3</div>
+          <div class="entry-title-block">
+            <div class="entry-title">Software Bill of Materials (SBOM)</div>
+            <div class="entry-citations">NIST AI RMF &middot; Five Eyes AI/ML Supply Chain Guidance (March 2026)</div>
+          </div>
+        </div>
+        <p class="entry-body">An inventory of all components, libraries, and dependencies that make up a vendor's product. An SBOM is the ingredient list for software. It shows what the product is built from, including components the vendor did not build itself but relies on. Without an SBOM, the district cannot evaluate what the vendor is built on, cannot assess supply chain risk, and cannot determine whether a reported vulnerability in an open-source library affects the tools in its environment. The Five Eyes joint guidance on AI/ML supply chain risks (March 2026) validates SBOM requirements as a national security priority that extends to education infrastructure.</p>
+        <div class="entry-example"><strong>Example:</strong> A district asks a vendor for its SBOM. The vendor cannot produce one. This means the vendor may not have visibility into its own supply chain, and the district cannot evaluate the risk that supply chain introduces to student data.</div>
+        <div class="entry-anchor">
+          <div class="entry-anchor-label">Framework Anchor</div>
+          <p>NIST AI RMF MAP 3.4: document AI system dependencies. Five Eyes AI/ML Supply Chain Guidance (2026): SBOM requirements for AI infrastructure. A vendor that cannot produce an SBOM may not control what its product is built from.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-entry v3-term">
+      <div class="entry-inner">
+        <div class="entry-top">
+          <div class="entry-badge v3">New &middot; Version 3</div>
+          <div class="entry-title-block">
+            <div class="entry-title">Foundation Model Dependency</div>
+            <div class="entry-citations">NIST AI RMF &middot; FERPA &middot; COPPA</div>
+          </div>
+        </div>
+        <p class="entry-body">The relationship between an edtech vendor's product and the underlying AI model (GPT, Claude, Gemini, Llama, or a proprietary model) that powers it. Many vendors market an "AI-powered" product without disclosing which foundation model powers it, where inference occurs, or what data flows to the model provider. A school district approves the vendor's product. It does not approve the hundreds of components underneath it. When the vendor switches foundation models mid-contract, the product's data handling, retention policies, and processing jurisdiction can change overnight. If the contract does not require notification of model changes, the district will not know.</p>
+        <div class="entry-example"><strong>Example:</strong> A vendor switches from one foundation model to another. The new model provider retains student input for training. The DPA with the vendor does not address model provider data practices. The district's data governance posture changed without anyone in the building being notified.</div>
+        <div class="entry-anchor">
+          <div class="entry-anchor-label">Framework Anchor</div>
+          <p>NIST AI RMF MAP 3.4: document which models power the product and where inference occurs. FERPA &sect;99.31: the DPA must cover the actual data path. COPPA &sect;6502: if student input reaches the model provider, the model provider's retention policies apply.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-entry v3-term">
+      <div class="entry-inner">
+        <div class="entry-top">
+          <div class="entry-badge v3">New &middot; Version 3</div>
+          <div class="entry-title-block">
+            <div class="entry-title">Trigger-Based Review</div>
+            <div class="entry-citations">NIST AI RMF GOVERN 1.1, MEASURE 2.6</div>
+          </div>
+        </div>
+        <p class="entry-body">A vendor re-evaluation initiated by a specific event rather than a calendar date. Five trigger types: supply chain incident (a component the vendor depends on is compromised), model or infrastructure change (the vendor switches foundation models or cloud providers), contract renewal or amendment, regulatory change (new federal or state requirements affecting the vendor relationship), and reported vulnerability in a known dependency. A calendar-only review cycle misses the events that actually change risk. Trigger-Based Review ensures the evaluation process re-enters at the relevant phase when conditions change, not twelve months later.</p>
+        <div class="entry-example"><strong>Example:</strong> A vendor's open-source dependency is compromised in a supply chain attack reported in the TLF Weekly Incident Bulletin. Trigger-Based Review activates: Sections 3 (Foundation Model Mapping), 4 (Data Flow Documentation), and 6 (Incident Monitoring) of the Upstream Vendor Risk Evaluation Protocol are re-evaluated immediately, not at the next annual review.</div>
+        <div class="entry-anchor">
+          <div class="entry-anchor-label">Framework Anchor</div>
+          <p>NIST AI RMF GOVERN 1.1: AI risk management is a continuous process. MEASURE 2.6: evaluation frequency should match the rate of change in the risk environment. Calendar-only review does not satisfy this.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════ SECTION 08 (v3 NEW) ═══════════════════════ -->
+    <div class="cal-section-label">New in Version 3 &middot; Forensic Language Analysis</div>
+
+    <div class="cal-entry v3-term">
+      <div class="entry-inner">
+        <div class="entry-top">
+          <div class="entry-badge v3">New &middot; Version 3</div>
+          <div class="entry-title-block">
+            <div class="entry-title">Compliance Forensics</div>
+            <div class="entry-citations">FERPA &middot; COPPA &middot; State Law &middot; NIST AI RMF</div>
+          </div>
+        </div>
+        <p class="entry-body">The practice of reading a district's full document ecosystem (Data Privacy Agreements, vendor terms of service, privacy policies, master service agreements, federal program requirements, and governance policies) against each other to identify contradictions, gaps, and silent overrides. A compliance review asks whether the right documents are on file. Compliance Forensics asks whether the language in those documents actually does what everyone in the building assumes it does: whether the definitions stay consistent across agreements, whether the commitments hold up when read against the vendor's own terms, and whether the language creates the appearance of protection without the enforceable obligation.</p>
+        <div class="entry-example"><strong>Example:</strong> A vendor's DPA defines "personal information" to include student records. The same vendor's terms of service define "personal information" to exclude data processed by third-party AI models. The DPA appears to protect the district. The terms of service override it for the most sensitive data path. Compliance Forensics finds this before an auditor does.</div>
+        <div class="entry-anchor">
+          <div class="entry-anchor-label">Practice Anchor</div>
+          <p>The forensic linguistic lens reads the DPA against the vendor's terms of service, privacy policy, and master service agreement to identify where definitions drift, commitments dissolve, and one document silently overrides another. This is The Language Firm's core investigative method.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-entry v3-term">
+      <div class="entry-inner">
+        <div class="entry-top">
+          <div class="entry-badge v3">New &middot; Version 3</div>
+          <div class="entry-title-block">
+            <div class="entry-title">Definition Drift</div>
+            <div class="entry-citations">FERPA &middot; COPPA &middot; SDPC DPA Framework</div>
+          </div>
+        </div>
+        <p class="entry-body">The condition where the same term carries different definitions across a vendor's DPA, terms of service, and privacy policy. "Personal information," "educational purpose," "school official," "de-identified data," and "aggregate data" are common drift points. When definitions drift, the protection the district believes it signed for may not apply to the data path that matters most. Definition Drift is invisible to a checklist review that confirms the DPA is signed. It is visible to a forensic reading that compares how the same term functions across every document in the vendor relationship.</p>
+        <div class="entry-example"><strong>Example:</strong> A DPA defines "student data" broadly. The vendor's privacy policy defines "student data" to exclude metadata, usage analytics, and behavioral signals. The DPA covers the narrow category. Everything else flows through the privacy policy, where the vendor retains broader rights. The district signed both documents. The definitions do not match.</div>
+        <div class="entry-anchor">
+          <div class="entry-anchor-label">Practice Anchor</div>
+          <p>FERPA &sect;99.31 requires the written agreement to specify data-use restrictions. If the DPA's definitions are narrower than the vendor's actual data practices (as defined elsewhere in its own documents), the agreement does not cover what the district thinks it covers.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-entry v3-term">
+      <div class="entry-inner">
+        <div class="entry-top">
+          <div class="entry-badge v3">New &middot; Version 3</div>
+          <div class="entry-title-block">
+            <div class="entry-title">Attestation Page</div>
+            <div class="entry-citations">USAC &middot; FCC Pilot Program &middot; IDEA &middot; FERPA</div>
+          </div>
+        </div>
+        <p class="entry-body">The signature page at the end of a governance workbook or compliance protocol where a named person signs and dates a statement confirming that they completed the documentation, that the entries are accurate, and that they understand the record may be reviewed in an audit or compliance inquiry. The Attestation Page is what converts a completed workbook from internal paperwork into filed evidence with a chain of accountability: a specific person, in a specific role, on a specific date, standing behind the record. Without it, the documentation is unsigned work product. With it, it is evidence.</p>
+        <div class="entry-example"><strong>Example:</strong> A completed Cybersecurity Governance Journal without a signed Attestation Page is a worksheet. The same journal with a signed Attestation Page, filed with the E-rate coordinator within five business days, is audit-ready documentation that proves due diligence.</div>
+        <div class="entry-anchor">
+          <div class="entry-anchor-label">Practice Anchor</div>
+          <p>USAC audits require documentation that a named person reviewed and approved. IDEA procedural safeguards require signed records. Every TLF governance workbook ends with an Attestation Page because compliance without a named, accountable person is not compliance.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-entry v3-term">
+      <div class="entry-inner">
+        <div class="entry-top">
+          <div class="entry-badge v3">New &middot; Version 3</div>
+          <div class="entry-title-block">
+            <div class="entry-title">Federal Preemption Signal</div>
+            <div class="entry-citations">EO 14365 (December 2025) &middot; Commerce Clause &middot; FTC Act &sect; 5</div>
+          </div>
+        </div>
+        <p class="entry-body">An indication that a federal action (executive order, agency directive, DOJ litigation, FTC policy statement) may challenge or override a state law that a district currently relies on for AI governance. Executive Order 14365 (December 11, 2025) established a DOJ AI Litigation Task Force, directed the Commerce Department to identify "onerous" state AI laws, and directed the FTC to issue a preemption policy statement. State AI laws that regulate vendor transparency, algorithmic bias, and AI disclosure are potential targets. A Federal Preemption Signal does not mean a state law has been invalidated. It means the federal government has initiated a process that could lead to litigation, which could lead to injunctions, which could change compliance obligations. Until a court acts, every state law on the books is enforceable. Comply with current law. Prepare for change.</p>
+        <div class="entry-example"><strong>Example:</strong> Your district relies on a state AI transparency law when evaluating vendors. The Commerce Department names that law as "onerous" in its March 2026 evaluation. The law has not been struck down. But the Federal Preemption Signal means you should prepare a contingency: what changes in your governance framework if that law is enjoined?</div>
+        <div class="entry-anchor">
+          <div class="entry-anchor-label">Regulatory Anchor</div>
+          <p>EO 14365, &sect;3 (DOJ Task Force), &sect;4 (Commerce evaluation), &sect;7 (FTC statement). The child safety carve-out preserves state authority over student data privacy and COPPA-adjacent protections, but state laws regulating AI broadly may not be protected. Districts should track which of their state-level AI protections fall inside or outside that carve-out.</p>
+        </div>
+      </div>
+    </div>
+
   </div><!-- /cal-entries -->
- 
+
   <div class="cal-statbar">
     <div class="cal-stat">
-      <div class="cal-stat-val">29 terms</div>
-      <div class="cal-stat-lbl">Operational definitions grounded in federal statute, not operational preference</div>
+      <div class="cal-stat-val">37 terms</div>
+      <div class="cal-stat-lbl">Operational definitions grounded in federal statute and published governance frameworks</div>
     </div>
     <div class="cal-stat">
-      <div class="cal-stat-val">6 statutes</div>
-      <div class="cal-stat-lbl">FERPA · IDEA · COPPA · PPRA · Title Programs · Section 504</div>
+      <div class="cal-stat-val">8 statutes</div>
+      <div class="cal-stat-lbl">FERPA &middot; IDEA &middot; COPPA &middot; PPRA &middot; Title Programs &middot; NIST AI RMF &middot; EO 14365 &middot; FTC Act</div>
     </div>
     <div class="cal-stat">
-      <div class="cal-stat-val">3 new</div>
-      <div class="cal-stat-lbl">Version 2 additions: FAPE Documentation Chain, DPA Registry, COPPA Consent Status</div>
+      <div class="cal-stat-val">8 new</div>
+      <div class="cal-stat-lbl">Version 3: Upstream Vendor Risk, SBOM, Foundation Model Dependency, Trigger-Based Review, Compliance Forensics, Definition Drift, Attestation Page, Federal Preemption Signal</div>
     </div>
   </div>
- 
+
   <div class="cal-footer-note">
-    <strong>How to use this Lexicon.</strong> In board meetings, use these terms to reframe technology decisions from "Do we like this tool?" to "What federal obligation does this tool affect, and does our documentation satisfy that obligation?" When evaluating a new tool, ask about its Workflow Fit Rating, Setup Tax, and Time-to-Compliance before asking about features. When reviewing current tools, measure your Tool Sprawl Index. When something goes wrong, assess Incident Response Readiness before you need it. When reporting to your board, use Learning ROI and Capacity Recovery — not vendor engagement metrics.
+    <strong>How to use this Lexicon.</strong> In board meetings, use these terms to reframe technology decisions from "Do we like this tool?" to "What federal obligation does this tool affect, and does our documentation satisfy that obligation?" When evaluating a new vendor, ask about its Foundation Model Dependency, Upstream Vendor Risk posture, and whether you can get an SBOM before asking about features. When reviewing current tools, measure your Tool Sprawl Index. When something goes wrong, assess Incident Response Readiness before you need it. When reporting to your board, use Learning ROI and Capacity Recovery: not vendor engagement metrics. When reading a DPA, look for Definition Drift.
+    <br><br>
+    The District Filing and Weekly Incident Bulletin track these developments weekly. Both are free. Start at <a href="https://www.languagefirm.org/toolvault" target="_blank">languagefirm.org/toolvault</a>.
     <br><br>
     Statutory citations are provided for orientation purposes only and do not constitute legal advice. Federal regulations are subject to revision; citations reflect the regulatory environment as of early 2026. The Language Firm is not a law firm. Schools should consult qualified legal counsel for compliance determinations specific to their jurisdiction. <a href="https://www.languagefirm.org" target="_blank">languagefirm.org</a>
   </div>
- 
+
 </div><!-- /cal-wrap -->
- 
+
 </body>
 </html>
