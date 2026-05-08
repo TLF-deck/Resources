@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The First Watch · Drift Timeline · Audits 001 → 002</title>
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Sampled directly from the PDF */
+    --navy:        #131a24;
+    --navy-deep:   #11172f;
+    --navy-badge:  #1f2547;
+    --rust:        #d85a31;
+    --rust-soft:   #dd582f;
+
+    /* Six category colors, exact hex from the document */
+    --no-drift:    #106e54;
+    --watch:       #ba7518;
+    --flag:        #a32d2d;
+    --convergence: #1f2547;
+    --asymmetric:  #3c3489;
+    --divergence:  #d85a31;
+
+    --bg:          #ffffff;
+    --bg-soft:     #fafafa;
+    --bg-panel:    #f5f3ee;
+    --ink:         #131a24;
+    --ink-soft:    #3a4151;
+    --ink-faded:   #8089a0;
+    --rule:        rgba(19, 26, 36, 0.14);
+    --rule-strong: rgba(19, 26, 36, 0.32);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Lora', 'PT Serif', Georgia, serif;
+    font-weight: 400;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  .top-accent {
+    height: 6px;
+    background: var(--rust);
+  }
+
+  header {
+    background: var(--bg);
+    color: var(--ink);
+    padding: 32px 48px 24px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .masthead-left { display: flex; flex-direction: column; gap: 6px; }
+
+  .firm-name {
+    font-family: 'PT Serif', 'Lora', Georgia, serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--navy);
+    letter-spacing: -0.005em;
+  }
+
+  .firm-eyebrow {
+    font-family: 'PT Serif', 'Lora', Georgia, serif;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    font-weight: 400;
+  }
+
+  h1 {
+    font-family: 'PT Serif', 'Lora', Georgia, serif;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 1.05;
+    color: var(--navy-deep);
+    margin-top: 8px;
+  }
+  h1 .accent { color: var(--rust); font-weight: 700; }
+
+  .subtitle {
+    font-family: 'PT Serif', 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-top: 6px;
+    font-weight: 700;
+  }
+
+  .audit-meta {
+    text-align: right;
+    font-family: 'Lora', serif;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+  .audit-meta-label {
+    font-family: 'PT Serif', serif;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 700;
+  }
+  .audit-meta-note {
+    margin-top: 6px;
+    color: var(--ink-faded);
+    font-size: 11.5px;
+  }
+
+  .tab-nav {
+    background: var(--bg);
+    padding: 0 48px;
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  .tab-btn {
+    font-family: 'PT Serif', serif;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--ink-faded);
+    border: none;
+    padding: 18px 28px;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+    font-weight: 700;
+  }
+  .tab-btn:hover { color: var(--ink-soft); }
+  .tab-btn.active { color: var(--navy); }
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 24px; right: 24px;
+    height: 3px;
+    background: var(--rust);
+  }
+  .tab-btn .num {
+    color: var(--rust);
+    margin-right: 10px;
+    font-family: 'PT Serif', serif;
+    font-weight: 700;
+  }
+
+  .legend {
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 48px;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    flex-wrap: wrap;
+    font-family: 'PT Serif', serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .legend-group { display: flex; gap: 14px; align-items: center; }
+  .legend-label {
+    color: var(--ink-faded);
+    font-weight: 400;
+    border-right: 1px solid var(--rule-strong);
+    padding-right: 22px;
+  }
+  .legend-pill {
+    display: inline-block;
+    color: #fff;
+    padding: 4px 10px;
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    font-weight: 700;
+  }
+  .legend-pill.no-drift    { background: var(--no-drift); }
+  .legend-pill.watch       { background: var(--watch); }
+  .legend-pill.flag        { background: var(--flag); }
+  .legend-pill.convergence { background: var(--convergence); }
+  .legend-pill.asymmetric  { background: var(--asymmetric); }
+  .legend-pill.divergence  { background: var(--divergence); }
+
+  main { padding: 40px 48px 80px; }
+
+  .view-section { display: none; }
+  .view-section.active { display: block; animation: fadeIn 0.4s ease-out; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-intro {
+    max-width: 760px;
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-eyebrow {
+    font-family: 'PT Serif', serif;
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--rust);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .section-eyebrow .num {
+    color: var(--navy);
+    margin-right: 10px;
+    border-right: 1px solid var(--rule-strong);
+    padding-right: 12px;
+  }
+  .section-title {
+    font-family: 'PT Serif', 'Lora', serif;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.15;
+    color: var(--navy-deep);
+    margin-bottom: 14px;
+  }
+  .section-title .accent { color: var(--rust); font-weight: 700; }
+  .section-desc {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 700px;
+  }
+
+  .drift-badge {
+    font-family: 'PT Serif', serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    font-weight: 700;
+    color: #fff;
+    display: inline-block;
+  }
+  .drift-badge.no-drift { background: var(--no-drift); }
+  .drift-badge.watch    { background: var(--watch); }
+  .drift-badge.flag     { background: var(--flag); }
+
+  .pattern-badge {
+    font-family: 'PT Serif', serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    font-weight: 700;
+    color: #fff;
+    display: inline-block;
+  }
+  .pattern-badge.convergence { background: var(--convergence); }
+  .pattern-badge.asymmetric  { background: var(--asymmetric); }
+  .pattern-badge.divergence  { background: var(--divergence); }
+
+  .tool-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+  }
+
+  .tool-row {
+    display: grid;
+    grid-template-columns: 240px 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.2s;
+  }
+
+  .tool-name-cell {
+    padding: 24px 22px;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    background: var(--bg-panel);
+  }
+  .tool-name {
+    font-family: 'PT Serif', serif;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--navy-deep);
+  }
+  .tool-vendor {
+    font-family: 'PT Serif', serif;
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    font-weight: 400;
+  }
+  .tool-decision {
+    display: inline-block;
+    margin-top: 6px;
+    font-family: 'PT Serif', serif;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid var(--rule-strong);
+    color: var(--ink-soft);
+    width: fit-content;
+    font-weight: 700;
+  }
+
+  .audit-cell {
+    padding: 24px 24px 22px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .audit-cell.audit-1 {
+    border-right: 1px solid var(--rule);
+  }
+
+  .audit-label {
+    font-family: 'PT Serif', serif;
+    font-size: 9.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rust);
+    font-weight: 700;
+  }
+
+  .badges {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .summary-text {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  .change-indicator {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-family: 'PT Serif', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .change-indicator.shifted  { color: var(--rust); }
+  .change-indicator.repeated { color: var(--ink-faded); }
+  .change-indicator.new      { color: var(--no-drift); }
+
+  .empty-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-faded);
+    font-size: 13px;
+    text-align: center;
+  }
+  .empty-cell .audit-label { margin-bottom: 8px; }
+
+  .chrono-container {
+    position: relative;
+    padding: 16px 0 60px;
+  }
+
+  .chrono-axis {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-bottom: 36px;
+    border-bottom: 2px solid var(--navy);
+  }
+
+  .chrono-month {
+    padding: 12px 16px 14px;
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+  .chrono-month:last-child { border-right: none; }
+
+  .month-label {
+    font-family: 'PT Serif', serif;
+    font-size: 9.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .month-name {
+    font-family: 'PT Serif', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--navy-deep);
+  }
+  .month-year { color: var(--ink-faded); font-weight: 400; }
+
+  .audit-marker-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--rust);
+    z-index: 5;
+    pointer-events: none;
+  }
+  .audit-marker-line::before {
+    content: attr(data-label);
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--rust);
+    color: #fff;
+    font-family: 'PT Serif', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    white-space: nowrap;
+    font-weight: 700;
+  }
+
+  .events-track {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .event-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    position: relative;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    min-height: 70px;
+  }
+
+  .event-tool-label {
+    font-family: 'PT Serif', serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 0 16px;
+    font-weight: 700;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    z-index: 1;
+  }
+
+  .event-track {
+    position: relative;
+    grid-column: 1;
+    grid-row: 1;
+    height: 100%;
+    width: 100%;
+  }
+
+  .event-dot {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .event-dot-circle {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--navy);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--navy);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .event-dot:hover .event-dot-circle {
+    transform: scale(1.4);
+    box-shadow: 0 0 0 2px var(--rust);
+  }
+
+  .event-dot.flag .event-dot-circle     { background: var(--flag); box-shadow: 0 0 0 1px var(--flag); }
+  .event-dot.watch .event-dot-circle    { background: var(--watch); box-shadow: 0 0 0 1px var(--watch); }
+  .event-dot.no-drift .event-dot-circle { background: var(--no-drift); box-shadow: 0 0 0 1px var(--no-drift); }
+  .event-dot.neutral .event-dot-circle  { background: var(--ink-faded); box-shadow: 0 0 0 1px var(--ink-faded); }
+
+  .event-tooltip {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--navy-deep);
+    color: #fff;
+    padding: 12px 14px;
+    width: 250px;
+    font-family: 'Lora', 'PT Serif', serif;
+    font-size: 12.5px;
+    line-height: 1.45;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    box-shadow: 0 8px 24px rgba(19, 26, 36, 0.18);
+  }
+  .event-dot:hover .event-tooltip {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .event-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--navy-deep);
+  }
+  .event-tooltip-date {
+    font-family: 'PT Serif', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust-soft);
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .event-tooltip-title {
+    font-family: 'PT Serif', serif;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #fff;
+  }
+
+  .pattern-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 44px;
+  }
+
+  .pattern-card {
+    background: var(--bg-panel);
+    padding: 22px 22px;
+    border-left: 4px solid var(--ink-faded);
+    position: relative;
+  }
+  .pattern-card.shifted          { border-left-color: var(--rust); }
+  .pattern-card.repeated-converge { border-left-color: var(--convergence); }
+  .pattern-card.repeated-asym    { border-left-color: var(--asymmetric); }
+  .pattern-card.repeated-div     { border-left-color: var(--divergence); }
+  .pattern-card.new              { border-left-color: var(--no-drift); }
+
+  .pattern-card-eyebrow {
+    font-family: 'PT Serif', serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .pattern-card-count {
+    font-family: 'PT Serif', serif;
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--navy-deep);
+    margin-bottom: 6px;
+  }
+  .pattern-card-label {
+    font-family: 'Lora', serif;
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+
+  .shift-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .shift-row {
+    display: grid;
+    grid-template-columns: 1fr 130px 50px 130px 1fr 140px;
+    gap: 18px;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .shift-tool {
+    font-family: 'PT Serif', serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--navy-deep);
+  }
+  .shift-tool small {
+    display: block;
+    font-family: 'PT Serif', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    font-weight: 400;
+    margin-top: 4px;
+  }
+
+  .shift-cell { text-align: center; }
+
+  .shift-arrow {
+    font-family: 'PT Serif', serif;
+    font-size: 20px;
+    color: var(--ink-faded);
+    text-align: center;
+  }
+  .shift-arrow.changed { color: var(--rust); font-weight: 700; }
+
+  .shift-empty {
+    font-family: 'PT Serif', serif;
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    padding: 5px 11px;
+    border: 1px dashed var(--rule-strong);
+    display: inline-block;
+    font-weight: 400;
+  }
+
+  .shift-note {
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+
+  .shift-tag {
+    font-family: 'PT Serif', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-align: right;
+    font-weight: 700;
+  }
+  .shift-tag.shifted  { color: var(--rust); }
+  .shift-tag.repeated { color: var(--ink-faded); }
+  .shift-tag.new      { color: var(--no-drift); }
+
+  footer {
+    background: var(--bg-panel);
+    color: var(--ink-soft);
+    padding: 24px 48px;
+    border-top: 3px solid var(--rust);
+    font-family: 'PT Serif', serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    line-height: 1.7;
+    font-weight: 400;
+  }
+  footer strong { color: var(--navy); font-weight: 700; }
+
+  @media (max-width: 1100px) {
+    .pattern-summary { grid-template-columns: repeat(2, 1fr); }
+    .shift-row { grid-template-columns: 1fr 100px 40px 100px; gap: 12px; }
+    .shift-row .shift-note, .shift-row .shift-tag { display: none; }
+    .tool-row { grid-template-columns: 200px 1fr 1fr; }
+  }
+
+  @media (max-width: 720px) {
+    header, .tab-nav, .legend, main, footer { padding-left: 20px; padding-right: 20px; }
+    .tab-nav { overflow-x: auto; flex-wrap: nowrap; }
+    .tab-btn { padding: 14px 18px; font-size: 10px; white-space: nowrap; }
+    .tool-row { grid-template-columns: 1fr; }
+    .tool-name-cell { border-right: none; border-bottom: 1px solid var(--rule); padding: 18px; }
+    .audit-cell.audit-1 { border-right: none; border-bottom: 1px solid var(--rule); }
+    .pattern-summary { grid-template-columns: 1fr; }
+    h1 { font-size: 28px; }
+    .section-title { font-size: 22px; }
+    .audit-meta { text-align: left; }
+    .chrono-axis { grid-template-columns: 1fr 1fr; }
+    .chrono-month:nth-child(2) { border-right: none; }
+    .month-name { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-accent"></div>
+
+<header>
+  <div class="masthead">
+    <div class="masthead-left">
+      <div class="firm-name">The Language Firm</div>
+      <div class="firm-eyebrow">K-12 AI Governance · Tool Intelligence</div>
+      <h1>The First <span class="accent">Watch</span></h1>
+      <div class="subtitle">Drift Timeline · Audits 001 → 002</div>
+    </div>
+    <div class="audit-meta">
+      <div><span class="audit-meta-label">Audit 001</span> · April 6, 2026 · 7 tools · 8-week rotation</div>
+      <div><span class="audit-meta-label">Audit 002</span> · May 6, 2026 · 8 tools · 4-week rotation</div>
+      <div class="audit-meta-note">Cross-references verified via vendor primary sources</div>
+    </div>
+  </div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" data-view="tools"><span class="num">01</span>Tool by Tool</button>
+  <button class="tab-btn" data-view="chrono"><span class="num">02</span>Chronological</button>
+  <button class="tab-btn" data-view="shifts"><span class="num">03</span>Pattern Shifts</button>
+</nav>
+
+<div class="legend">
+  <div class="legend-group">
+    <span class="legend-label">Drift Category</span>
+    <span class="legend-pill no-drift">No Drift</span>
+    <span class="legend-pill watch">Watch</span>
+    <span class="legend-pill flag">Flag</span>
+  </div>
+  <div class="legend-group">
+    <span class="legend-label">Forensic Pattern</span>
+    <span class="legend-pill convergence">Convergence</span>
+    <span class="legend-pill asymmetric">Asymmetric</span>
+    <span class="legend-pill divergence">Divergence</span>
+  </div>
+</div>
+
+<main>
+
+<section class="view-section active" id="view-tools">
+  <div class="section-intro">
+    <div class="section-eyebrow"><span class="num">01</span>View · Tool by Tool</div>
+    <h2 class="section-title">How each tool moved <span class="accent">between audits</span></h2>
+    <p class="section-desc">Each tool's findings from Audit 001 (April 6) compared directly against Audit 002 (May 6). The right column flags whether the pattern shifted, repeated, or is new this cycle.</p>
+  </div>
+  <div class="tool-grid" id="tool-grid"></div>
+</section>
+
+<section class="view-section" id="view-chrono">
+  <div class="section-intro">
+    <div class="section-eyebrow"><span class="num">02</span>View · Chronological Events</div>
+    <h2 class="section-title">Every dated movement, <span class="accent">February → May 2026</span></h2>
+    <p class="section-desc">Each documented event from both audits plotted on a single timeline. Hover any dot for details. Vertical rust lines mark each audit's data-collection cutoff.</p>
+  </div>
+  <div class="chrono-container" id="chrono-container"></div>
+</section>
+
+<section class="view-section" id="view-shifts">
+  <div class="section-intro">
+    <div class="section-eyebrow"><span class="num">03</span>View · Pattern Shifts</div>
+    <h2 class="section-title">What the longitudinal record <span class="accent">begins to show</span></h2>
+    <p class="section-desc">With two audits on file, patterns become legible. Tools whose forensic pattern shifted (convergence → asymmetric) reveal that even stable vendors don't necessarily produce stable patterns. Tools that repeated build a track record of consistency — for better or worse.</p>
+  </div>
+
+  <div class="pattern-summary">
+    <div class="pattern-card shifted">
+      <div class="pattern-card-eyebrow">Pattern Shifted</div>
+      <div class="pattern-card-count">2</div>
+      <div class="pattern-card-label">NotebookLM, Claude Enterprise — both moved from convergence to asymmetric</div>
+    </div>
+    <div class="pattern-card repeated-div">
+      <div class="pattern-card-eyebrow">Repeated Divergence</div>
+      <div class="pattern-card-count">1</div>
+      <div class="pattern-card-label">ChatGPT Free — second consecutive cycle of divergence</div>
+    </div>
+    <div class="pattern-card repeated-asym">
+      <div class="pattern-card-eyebrow">Repeated Asymmetric</div>
+      <div class="pattern-card-count">3</div>
+      <div class="pattern-card-label">ChatGPT for Teachers, MS 365 Copilot, Claude Free</div>
+    </div>
+    <div class="pattern-card repeated-converge">
+      <div class="pattern-card-eyebrow">Repeated Convergence</div>
+      <div class="pattern-card-count">1</div>
+      <div class="pattern-card-label">Khanmigo — the only two-cycle convergence on record</div>
+    </div>
+  </div>
+
+  <div class="shift-flow" id="shift-flow"></div>
+</section>
+
+</main>
+
+<footer>
+  <div>The First Watch · Drift Audits 001 + 002 · <strong>languagefirm.org/toolvault</strong></div>
+  <div>Next audit: <strong>No. 003 · June 2026</strong></div>
+</footer>
+
+<script>
+const tools = [
+  { name: "ChatGPT Free", vendor: "OpenAI", decision: "Do Not Deploy",
+    audit1: { drift: "flag", pattern: "divergence", summary: "Advertising introduced 02/09. Confirmed permanent 03/26. Criteo signed 03/02; Smartly 04/01. Self-serve scheduled later April." },
+    audit2: { drift: "flag", pattern: "divergence", summary: "Self-serve Ads Manager beta launched 05/05. CPC bidding, Conversions API, pixel measurement live. Tech partners: Adobe, Criteo, Kargo, Pacvue, StackAdapt." },
+    change: "repeated", changeLabel: "Repeated Divergence" },
+  { name: "ChatGPT for Teachers", vendor: "OpenAI", decision: "Conditional",
+    audit1: { drift: "watch", pattern: "asymmetric", summary: "Ad-free confirmed. 200,000+ teachers across 16 districts plus Delaware DOE. SDPC listing unconfirmed. Posture ahead of infrastructure." },
+    audit2: { drift: "watch", pattern: "asymmetric", summary: "Codex-powered workspace agents added during rotation. Cohort confirmed at ~150,000 teachers. June 2027 vs June 2028 date discrepancy persists." },
+    change: "repeated", changeLabel: "Repeated Asymmetric" },
+  { name: "Google NotebookLM for Education", vendor: "Google", decision: "Teacher-OK",
+    audit1: { drift: "no-drift", pattern: "convergence", summary: "All governance signals confirmed current. Core Service status, no-training commitment, FERPA/COPPA alignment unchanged." },
+    audit2: { drift: "watch", pattern: "asymmetric", summary: "Privacy Hub revised 04/22. Student notebook expansion in Classroom 05/01 (HE only, 18+). New AI control center in Workspace Admin 05/04." },
+    change: "shifted", changeLabel: "Pattern Shifted" },
+  { name: "Microsoft 365 Copilot (Education)", vendor: "Microsoft", decision: "Conditional",
+    audit1: { drift: "watch", pattern: "asymmetric", summary: "Anthropic subprocessor rollout complete. Legacy toggle deprecated. Policy held; enforcement path moved. April 15 Copilot Chat restriction pending." },
+    audit2: { drift: "watch", pattern: "asymmetric", summary: "April 15 in-app Copilot Chat removal took effect on schedule. New 04/03 EU/EFTA/UK app-scope sub-setting introduced. Policy unchanged." },
+    change: "repeated", changeLabel: "Repeated Asymmetric" },
+  { name: "Khanmigo", vendor: "Khan Academy", decision: "Teacher-OK",
+    audit1: { drift: "no-drift", pattern: "convergence", summary: "All governance signals confirmed current. DPA, SDPC listing, no-training commitment, student access model unchanged." },
+    audit2: { drift: "no-drift", pattern: "convergence", summary: "All signals confirmed current. Khan disclosed 05/05 that ~15% of eligible students engage regularly — product-quality, not governance." },
+    change: "repeated", changeLabel: "Repeated Convergence" },
+  { name: "Claude Free", vendor: "Anthropic", decision: "Do Not Deploy",
+    audit1: { drift: "watch", pattern: "asymmetric", summary: "Ad-free commitment (02/2026) is new positive posture. Structural governance gaps unchanged. Do Not Deploy label stands." },
+    audit2: { drift: "watch", pattern: "asymmetric", summary: "Mid-April: active enforcement of 18+ age requirement begins, with Yoti age verification deployed and accounts suspended." },
+    change: "repeated", changeLabel: "Repeated Asymmetric" },
+  { name: "Claude Enterprise", vendor: "Anthropic", decision: "Conditional",
+    audit1: { drift: "watch", pattern: "convergence", summary: "Enterprise governance signals stable. Conditional label unchanged. BYOK announced H1 2026; availability unconfirmed." },
+    audit2: { drift: "watch", pattern: "asymmetric", summary: "Opus 4.7 (04/16), Claude Design (04/17), Claude for Creative Work (04/28), Claude Security beta (04/30), Blackstone venture (05/04). Policy stable; product surface expanding." },
+    change: "shifted", changeLabel: "Pattern Shifted" },
+  { name: "Claude for Education", vendor: "Anthropic", decision: "Do Not Deploy",
+    audit1: null,
+    audit2: { drift: "no-drift", pattern: "convergence", summary: "First audit cycle. v4 (April 27) signals confirmed against Anthropic primary sources. No K-12 institutional pathway has opened." },
+    change: "new", changeLabel: "New This Cycle" }
+];
+
+const TIMELINE_START = new Date('2026-02-01');
+const TIMELINE_END = new Date('2026-05-06');
+const TOTAL_DAYS = (TIMELINE_END - TIMELINE_START) / (1000 * 60 * 60 * 24);
+function pctPosition(d) { return ((new Date(d) - TIMELINE_START) / (1000 * 60 * 60 * 24) / TOTAL_DAYS) * 100; }
+
+const events = [
+  { tool: "ChatGPT Free", date: "2026-02-09", dateLabel: "Feb 9, 2026", title: "Advertising introduced on Free tier", detail: "OpenAI's revised U.S. Privacy Policy effective same date. Now the governing document for any Free-tier use.", type: "flag" },
+  { tool: "ChatGPT Free", date: "2026-03-02", dateLabel: "Mar 2, 2026", title: "Criteo signed as first ad-tech partner", detail: "~17,000 advertisers connected to ChatGPT inventory.", type: "flag" },
+  { tool: "ChatGPT Free", date: "2026-03-26", dateLabel: "Mar 26, 2026", title: "Pilot confirmed permanent", detail: "International expansion to Canada, Australia, NZ. >$100M annualized revenue, 600+ advertisers (per trade reporting).", type: "flag" },
+  { tool: "ChatGPT Free", date: "2026-04-01", dateLabel: "Apr 1, 2026", title: "Smartly signed as creative ad-tech partner", detail: "Focused on optimizing ad creative and interactive ad formats.", type: "flag" },
+  { tool: "ChatGPT Free", date: "2026-05-05", dateLabel: "May 5, 2026", title: "Self-serve Ads Manager beta launches", detail: "CPC bidding, Conversions API, pixel measurement go live. Adobe, Kargo, Pacvue, StackAdapt added. $50K minimum spend removed.", type: "flag" },
+  { tool: "ChatGPT for Teachers", date: "2026-04-15", dateLabel: "Mid-April 2026", title: "Codex-powered workspace agents preview", detail: "Educators can build shared agents in natural language, connect to Canva, Google Drive, Microsoft 365, run in Slack or ChatGPT. No additional cost during preview.", type: "watch" },
+  { tool: "NotebookLM", date: "2026-04-22", dateLabel: "Apr 22, 2026", title: "Privacy Hub document revised", detail: "Substantive commitments unchanged. Counsel reviewing for prior-year procurement should refresh against current revision.", type: "watch" },
+  { tool: "NotebookLM", date: "2026-05-01", dateLabel: "May 1, 2026", title: "Student notebooks in Classroom (HE only)", detail: "Higher-ed students 18+ can now create personal notebooks for courses. Restricted to HE by design; K-12 unaffected.", type: "watch" },
+  { tool: "NotebookLM", date: "2026-05-04", dateLabel: "May 4, 2026", title: "AI control center in Workspace Admin", detail: "New centralized visibility into AI feature configuration. Rollout up to 15 days across rapid/scheduled domains.", type: "watch" },
+  { tool: "MS 365 Copilot", date: "2026-01-07", dateLabel: "Jan 7, 2026", title: "Legacy Anthropic toggle deprecated", detail: "Pre-rotation context. Anthropic subprocessor rollout begins with new toggle path.", type: "neutral" },
+  { tool: "MS 365 Copilot", date: "2026-04-03", dateLabel: "Apr 3, 2026", title: "EU/EFTA/UK app-scope sub-setting introduced", detail: "Operates separately from global subprocessor toggle. New tenants in those regions: on by default.", type: "watch" },
+  { tool: "MS 365 Copilot", date: "2026-04-15", dateLabel: "Apr 15, 2026", title: "In-app Copilot Chat removed (Word/Excel/PPT/OneNote)", detail: "Effect on schedule per MC1253858/MC1253863. Tenants >2,000 users: full removal for unlicensed. Smaller tenants: standard access.", type: "watch" },
+  { tool: "Khanmigo", date: "2026-05-05", dateLabel: "May 5, 2026", title: "Engagement transparency disclosure", detail: "~15% of eligible students engage regularly; 108M+ total interactions since 2023. Tracking 'next-item correctness' as transfer metric. Product-quality, not governance.", type: "no-drift" },
+  { tool: "Claude Free", date: "2026-02-04", dateLabel: "Feb 4, 2026", title: "Ad-free commitment published", detail: "'Claude is a space to think' announcement: products will remain ad-free across all tiers.", type: "watch" },
+  { tool: "Claude Free", date: "2026-04-15", dateLabel: "Mid-April 2026", title: "Active enforcement of 18+ age requirement", detail: "Account suspensions for users flagged as under-18. Restoration requires Yoti third-party age verification (digital ID, facial estimation, biometric).", type: "watch" },
+  { tool: "Claude Enterprise", date: "2026-04-07", dateLabel: "Apr 7, 2026", title: "Project Glasswing launches", detail: "Consortium effort with AWS, Apple, Broadcom, Cisco, CrowdStrike, Google, JPMorgan, Microsoft, NVIDIA, Palo Alto Networks.", type: "watch" },
+  { tool: "Claude Enterprise", date: "2026-04-16", dateLabel: "Apr 16, 2026", title: "Claude Opus 4.7 launches", detail: "New flagship Anthropic model.", type: "watch" },
+  { tool: "Claude Enterprise", date: "2026-04-17", dateLabel: "Apr 17, 2026", title: "Claude Design launches", detail: "Anthropic Labs product available to Pro, Max, Team, Enterprise subscribers.", type: "watch" },
+  { tool: "Claude Enterprise", date: "2026-04-28", dateLabel: "Apr 28, 2026", title: "Claude for Creative Work launches", detail: "New product surface added to Enterprise authorization scope.", type: "watch" },
+  { tool: "Claude Enterprise", date: "2026-04-30", dateLabel: "Apr 30, 2026", title: "Claude Security public beta", detail: "Opus 4.7-powered code vulnerability scanning for Enterprise customers. Severity/confidence ratings, CSV/Markdown export.", type: "watch" },
+  { tool: "Claude Enterprise", date: "2026-05-04", dateLabel: "May 4, 2026", title: "Blackstone enterprise venture announced", detail: "$1.5B AI-native enterprise services firm with Blackstone, Hellman & Friedman, Goldman Sachs. Verified via Anthropic, Bloomberg, Fortune, CNBC.", type: "watch" },
+  { tool: "Claude for Education", date: "2026-04-06", dateLabel: "Apr 6, 2026", title: "First Tool Spotlight Card issued", detail: "Enters audit cycle. v4 (April 27) signals confirmed against Anthropic primary sources.", type: "no-drift" }
+];
+
+const driftLabel = (k) => k === 'no-drift' ? 'No Drift' : k === 'watch' ? 'Watch' : 'Flag';
+const patternLabel = (k) => k.charAt(0).toUpperCase() + k.slice(1);
+
+function renderTools() {
+  const grid = document.getElementById('tool-grid');
+  grid.innerHTML = tools.map(tool => {
+    const a1 = tool.audit1, a2 = tool.audit2;
+    const a1Cell = a1 ? `
+      <div class="audit-cell audit-1">
+        <div class="audit-label">Audit 001 · April 6</div>
+        <div class="badges">
+          <span class="drift-badge ${a1.drift}">${driftLabel(a1.drift)}</span>
+          <span class="pattern-badge ${a1.pattern}">${patternLabel(a1.pattern)}</span>
+        </div>
+        <div class="summary-text">${a1.summary}</div>
+      </div>` : `
+      <div class="audit-cell audit-1 empty-cell">
+        <div>
+          <div class="audit-label">Audit 001 · April 6</div>
+          Not in rotation
+        </div>
+      </div>`;
+    return `
+      <div class="tool-row">
+        <div class="tool-name-cell">
+          <div class="tool-name">${tool.name}</div>
+          <div class="tool-vendor">${tool.vendor}</div>
+          <div class="tool-decision">${tool.decision}</div>
+        </div>
+        ${a1Cell}
+        <div class="audit-cell audit-2">
+          <div class="audit-label">Audit 002 · May 6</div>
+          <div class="badges">
+            <span class="drift-badge ${a2.drift}">${driftLabel(a2.drift)}</span>
+            <span class="pattern-badge ${a2.pattern}">${patternLabel(a2.pattern)}</span>
+          </div>
+          <div class="summary-text">${a2.summary}</div>
+          <div class="change-indicator ${tool.change}">${tool.changeLabel}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderChrono() {
+  const container = document.getElementById('chrono-container');
+  const toolOrder = ["ChatGPT Free", "ChatGPT for Teachers", "NotebookLM", "MS 365 Copilot", "Khanmigo", "Claude Free", "Claude Enterprise", "Claude for Education"];
+  const eventsByTool = {};
+  toolOrder.forEach(t => eventsByTool[t] = []);
+  events.forEach(e => { if (eventsByTool[e.tool]) eventsByTool[e.tool].push(e); });
+
+  const audit1Pct = pctPosition('2026-04-06');
+  const audit2Pct = pctPosition('2026-05-06');
+
+  const monthAxis = `
+    <div class="chrono-axis">
+      <div class="chrono-month"><div class="month-label">Month 01</div><div class="month-name">Feb<span class="month-year"> '26</span></div></div>
+      <div class="chrono-month"><div class="month-label">Month 02</div><div class="month-name">Mar<span class="month-year"> '26</span></div></div>
+      <div class="chrono-month"><div class="month-label">Month 03</div><div class="month-name">Apr<span class="month-year"> '26</span></div></div>
+      <div class="chrono-month"><div class="month-label">Month 04</div><div class="month-name">May<span class="month-year"> '26</span></div></div>
+    </div>`;
+
+  const rows = toolOrder.map(toolName => {
+    const dots = eventsByTool[toolName].map(e => {
+      const left = pctPosition(e.date);
+      return `
+        <div class="event-dot ${e.type}" style="left: ${left}%;">
+          <div class="event-dot-circle"></div>
+          <div class="event-tooltip">
+            <div class="event-tooltip-date">${e.dateLabel}</div>
+            <div class="event-tooltip-title">${e.title}</div>
+            <div style="font-size:11.5px; line-height:1.45; opacity:0.9;">${e.detail}</div>
+          </div>
+        </div>`;
+    }).join('');
+    return `
+      <div class="event-row">
+        <div class="event-tool-label">${toolName}</div>
+        <div class="event-track">${dots}</div>
+      </div>`;
+  }).join('');
+
+  container.innerHTML = `
+    <div style="position:relative;">
+      ${monthAxis}
+      <div style="position:relative;">
+        <div class="audit-marker-line" data-label="Audit 001 cutoff" style="left: ${audit1Pct}%;"></div>
+        <div class="audit-marker-line" data-label="Audit 002 cutoff" style="left: ${audit2Pct}%;"></div>
+        <div class="events-track">${rows}</div>
+      </div>
+    </div>`;
+}
+
+function renderShifts() {
+  const flow = document.getElementById('shift-flow');
+  flow.innerHTML = tools.map(tool => {
+    const a1 = tool.audit1, a2 = tool.audit2;
+    let note = '';
+    if (tool.change === 'shifted') {
+      if (tool.name === 'Google NotebookLM for Education') note = 'Procedural changes activated under stable policy';
+      else if (tool.name === 'Claude Enterprise') note = 'Product surface expanded rapidly under stable policy';
+    } else if (tool.change === 'new') {
+      note = 'First audit cycle; baseline confirmed';
+    } else if (tool.name === 'Khanmigo') note = 'Two-cycle convergence — strongest record';
+    else if (tool.name === 'ChatGPT Free') note = 'Two-cycle divergence — operational deepening';
+    else note = 'Pattern continues from prior cycle';
+
+    const arrowClass = tool.change === 'shifted' ? 'changed' : '';
+    const a1Pill = a1
+      ? `<span class="pattern-badge ${a1.pattern}">${patternLabel(a1.pattern)}</span>`
+      : `<span class="shift-empty">— Not in rotation —</span>`;
+
+    return `
+      <div class="shift-row">
+        <div class="shift-tool">${tool.name}<small>${tool.vendor}</small></div>
+        <div class="shift-cell">${a1Pill}</div>
+        <div class="shift-arrow ${arrowClass}">→</div>
+        <div class="shift-cell"><span class="pattern-badge ${a2.pattern}">${patternLabel(a2.pattern)}</span></div>
+        <div class="shift-note">${note}</div>
+        <div class="shift-tag ${tool.change}">${tool.changeLabel}</div>
+      </div>`;
+  }).join('');
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const view = btn.dataset.view;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+    document.getElementById('view-' + view).classList.add('active');
+  });
+});
+
+renderTools();
+renderChrono();
+renderShifts();
+</script>
+</body>
+</html>
