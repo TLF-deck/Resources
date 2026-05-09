@@ -475,6 +475,11 @@
     border-bottom: 1px solid var(--rule);
     min-height: 70px;
   }
+  /* When a dot in this row is hovered, lift the whole row above its siblings
+     so a tooltip extending into an adjacent row isn't covered by that row's dots. */
+  .event-row:has(.event-dot:hover) {
+    z-index: 100;
+  }
 
   .event-tool-label {
     font-family: 'PT Serif', serif;
@@ -504,6 +509,12 @@
     transform: translate(-50%, -50%);
     cursor: pointer;
     z-index: 2;
+  }
+  /* On hover, elevate the entire dot's stacking context so the tooltip
+     sits above adjacent dots (each dot creates its own stacking context
+     via z-index + transform, so the tooltip's z-index alone isn't enough). */
+  .event-dot:hover {
+    z-index: 200;
   }
 
   .event-dot-circle {
