@@ -447,6 +447,17 @@
     white-space: nowrap;
     font-weight: 700;
   }
+  /* Edge-aware label positioning: when the marker line is near the right edge,
+     anchor the label to its right side so it doesn't clip past the viewport. */
+  .audit-marker-line.edge-right::before {
+    left: auto;
+    right: 0;
+    transform: none;
+  }
+  .audit-marker-line.edge-left::before {
+    left: 0;
+    transform: none;
+  }
 
   .events-track {
     display: flex;
@@ -971,6 +982,7 @@ function renderChrono() {
 
   const audit1Pct = pctPosition('2026-04-06');
   const audit2Pct = pctPosition('2026-05-06');
+  const markerEdgeClass = (p) => p > 82 ? ' edge-right' : (p < 18 ? ' edge-left' : '');
 
   const monthAxis = `
     <div class="chrono-axis">
@@ -1014,8 +1026,8 @@ function renderChrono() {
     <div style="position:relative;">
       ${monthAxis}
       <div style="position:relative;">
-        <div class="audit-marker-line" data-label="Audit 001 cutoff" style="left: ${audit1Pct}%;"></div>
-        <div class="audit-marker-line" data-label="Audit 002 cutoff" style="left: ${audit2Pct}%;"></div>
+        <div class="audit-marker-line${markerEdgeClass(audit1Pct)}" data-label="Audit 001 cutoff" style="left: ${audit1Pct}%;"></div>
+        <div class="audit-marker-line${markerEdgeClass(audit2Pct)}" data-label="Audit 002 cutoff" style="left: ${audit2Pct}%;"></div>
         <div class="events-track">${rows}</div>
       </div>
     </div>`;
