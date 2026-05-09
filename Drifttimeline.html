@@ -532,6 +532,27 @@
     transition: opacity 0.2s;
     box-shadow: 0 8px 24px rgba(19, 26, 36, 0.18);
   }
+  /* Edge-aware horizontal positioning so tooltips don't get clipped by the viewport */
+  .event-dot.edge-left .event-tooltip {
+    left: 0;
+    transform: translateX(-12px);
+  }
+  .event-dot.edge-right .event-tooltip {
+    left: auto;
+    right: 0;
+    transform: translateX(12px);
+  }
+  /* First row tooltips open downward so they don't collide with the audit-marker labels above */
+  .event-row.first-row .event-tooltip {
+    bottom: auto;
+    top: calc(100% + 12px);
+  }
+  .event-row.first-row .event-tooltip::after {
+    top: auto;
+    bottom: 100%;
+    border-top-color: transparent;
+    border-bottom-color: var(--navy-deep);
+  }
   .event-dot:hover .event-tooltip {
     opacity: 1;
     pointer-events: auto;
@@ -544,6 +565,16 @@
     transform: translateX(-50%);
     border: 5px solid transparent;
     border-top-color: var(--navy-deep);
+  }
+  /* When tooltip is edge-shifted, the arrow needs to follow the dot, not the tooltip center */
+  .event-dot.edge-left .event-tooltip::after {
+    left: 12px;
+    transform: none;
+  }
+  .event-dot.edge-right .event-tooltip::after {
+    left: auto;
+    right: 12px;
+    transform: none;
   }
   .event-tooltip-date {
     font-family: 'PT Serif', serif;
@@ -949,11 +980,18 @@ function renderChrono() {
       <div class="chrono-month"><div class="month-label">Month 04</div><div class="month-name">May<span class="month-year"> '26</span></div></div>
     </div>`;
 
-  const rows = toolOrder.map(toolName => {
+  const rows = toolOrder.map((toolName, rowIndex) => {
     const dots = eventsByTool[toolName].map(e => {
       const left = pctPosition(e.date);
+      // Tooltip is 250px wide and centered on the dot. When the dot sits near
+      // an edge, the tooltip gets clipped by body's overflow-x:hidden.
+      // Threshold ~18% on each side keeps the centered tooltip in-bounds at
+      // typical desktop widths; outside that range, switch to edge anchoring.
+      let edgeClass = '';
+      if (left < 18) edgeClass = ' edge-left';
+      else if (left > 82) edgeClass = ' edge-right';
       return `
-        <div class="event-dot ${e.type}" style="left: ${left}%;">
+        <div class="event-dot ${e.type}${edgeClass}" style="left: ${left}%;">
           <div class="event-dot-circle"></div>
           <div class="event-tooltip">
             <div class="event-tooltip-date">${e.dateLabel}</div>
@@ -962,8 +1000,11 @@ function renderChrono() {
           </div>
         </div>`;
     }).join('');
+    // First row's tooltips open upward into the audit-marker labels and
+    // page chrome; flip them downward to avoid clipping at the top.
+    const rowClass = rowIndex === 0 ? 'event-row first-row' : 'event-row';
     return `
-      <div class="event-row">
+      <div class="${rowClass}">
         <div class="event-tool-label">${toolName}</div>
         <div class="event-track">${dots}</div>
       </div>`;
